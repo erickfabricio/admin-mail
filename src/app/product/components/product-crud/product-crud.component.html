@@ -108,7 +108,7 @@
 
     <div class="modal-footer" *ngSwitchCase="'CREATE'">
         <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="modal.hide()">Close</button>
-        <button type="button" class="btn btn-primary" (click)="save()">Create</button>
+        <button type="button" class="btn btn-primary" (click)="onCreate()">Create</button>
     </div>
 
     <div class="modal-footer" *ngSwitchCase="'READ'">
@@ -117,12 +117,12 @@
 
     <div class="modal-footer" *ngSwitchCase="'UPDATE'">
         <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="modal.hide()">Close</button>
-        <button type="button" class="btn btn-primary" (click)="save()">Update</button>
+        <button type="button" class="btn btn-primary" (click)="onUpdate()">Update</button>
     </div>
 
     <div class="modal-footer" *ngSwitchCase="'DELETE'">
         <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="modal.hide()">Close</button>
-        <button type="button" class="btn btn-primary" (click)="save()">Delete</button>
+        <button type="button" class="btn btn-primary" (click)="onDelete()">Delete</button>
     </div>
 
 </div>

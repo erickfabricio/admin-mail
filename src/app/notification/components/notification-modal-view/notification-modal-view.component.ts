@@ -29,7 +29,7 @@ export class NotificationModalViewComponent implements OnInit {
 
   getProduct(){
     //Api
-    this.productService.getProductById(this.notification.product)
+    this.productService.findById(this.notification.product)
     .subscribe(product => {console.log(product); this.product = product});
   }
 

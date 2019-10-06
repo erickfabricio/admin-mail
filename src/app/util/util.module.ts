@@ -1,10 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+import { AlertModule } from 'ngx-bootstrap/alert';
+
 import { UtilRoutingModule } from './util-routing.module';
 import { AlertComponent } from './components/alert/alert.component';
 
-import { AlertModule } from 'ngx-bootstrap/alert';
+
 
 
 @NgModule({
@@ -13,6 +15,9 @@ import { AlertModule } from 'ngx-bootstrap/alert';
     CommonModule,
     UtilRoutingModule,
     AlertModule.forRoot()
+  ],
+  exports: [
+    AlertComponent
   ]
 })
 export class UtilModule { }

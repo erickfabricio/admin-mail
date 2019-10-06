@@ -29,11 +29,11 @@ export class ProductService {
     return this.http.get<ProductModel>(`${this.api}/${id}`);
   }
 
-  saveProduct(product: ProductModel): Observable<ProductModel>{
+  save(product: ProductModel): Observable<ProductModel>{
     return this.http.post<ProductModel>(this.api, product);
   }
 
-  updateProduct(product: ProductModel): Observable<ProductModel>{
+  update(product: ProductModel): Observable<ProductModel>{
     return this.http.put<ProductModel>(`${this.api}/${product._id}`, product);
   }
 

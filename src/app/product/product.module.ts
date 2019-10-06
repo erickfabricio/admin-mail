@@ -9,20 +9,20 @@ import { AlertModule } from 'ngx-bootstrap/alert';
 import { ProductRoutingModule } from './product-routing.module';
 import { ProductMainComponent } from './components/product-main/product-main.component';
 import { ProductListComponent } from './components/product-list/product-list.component';
-import { ProductNewComponent } from './components/product-new/product-new.component';
+
 import { ProductSelectComponent } from './components/product-select/product-select.component';
-import { ProductViewComponent } from './components/product-view/product-view.component';
-import { ProductDeleteComponent } from './components/product-delete/product-delete.component';
-import { ProductEditComponent } from './components/product-edit/product-edit.component';
+
 import { ProductCrudComponent } from './components/product-crud/product-crud.component';
+
+import { UtilModule } from '../util/util.module';
 
 
 @NgModule({
   declarations: [
     ProductMainComponent,
     ProductListComponent,
-    ProductNewComponent,           
-    ProductSelectComponent, ProductViewComponent, ProductDeleteComponent, ProductEditComponent, ProductCrudComponent    
+    
+    ProductSelectComponent, ProductCrudComponent
   ],
   imports: [
     CommonModule,
@@ -30,8 +30,10 @@ import { ProductCrudComponent } from './components/product-crud/product-crud.com
     FormsModule,
     ReactiveFormsModule,
     ModalModule.forRoot(),
-    AlertModule.forRoot()
+    AlertModule.forRoot(),
+    UtilModule
+
   ],
-  entryComponents:[ProductNewComponent, ProductViewComponent, ProductEditComponent, ProductDeleteComponent, ProductCrudComponent]
+  entryComponents: [ProductCrudComponent]
 })
 export class ProductModule { }

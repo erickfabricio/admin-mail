@@ -19,17 +19,6 @@ export class ProductModel implements DeserializeInterface {
 
     public toString(): String {
         return "id:" + this._id;
-        /*
-        "id:" + this._id + ", " +
-        "service:" + this.service + ", " + 
-        "name:" + this.name + ", " +
-        "domain:" + this.domain + ", " +
-        "mail:" + this.mail + ", " +
-        "password:" + this.password + ", " +
-        "description:" + this.description + ", " +
-        "date:" + this.date.toDateString + ", " +
-        "state:" + this.state;
-        */
     }
 
 }
