@@ -5,7 +5,7 @@ import { ProductModel } from '../../models/product.model';
 import { ProductService } from '../../services/product.service';
 
 @Component({
-  selector: 'app-product-delete',
+  selector: 'product-delete',
   templateUrl: './product-delete.component.html',
   styleUrls: ['./product-delete.component.css']
 })

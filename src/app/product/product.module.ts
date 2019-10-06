@@ -14,6 +14,7 @@ import { ProductSelectComponent } from './components/product-select/product-sele
 import { ProductViewComponent } from './components/product-view/product-view.component';
 import { ProductDeleteComponent } from './components/product-delete/product-delete.component';
 import { ProductEditComponent } from './components/product-edit/product-edit.component';
+import { ProductCrudComponent } from './components/product-crud/product-crud.component';
 
 
 @NgModule({
@@ -21,7 +22,7 @@ import { ProductEditComponent } from './components/product-edit/product-edit.com
     ProductMainComponent,
     ProductListComponent,
     ProductNewComponent,           
-    ProductSelectComponent, ProductViewComponent, ProductDeleteComponent, ProductEditComponent    
+    ProductSelectComponent, ProductViewComponent, ProductDeleteComponent, ProductEditComponent, ProductCrudComponent    
   ],
   imports: [
     CommonModule,
@@ -31,6 +32,6 @@ import { ProductEditComponent } from './components/product-edit/product-edit.com
     ModalModule.forRoot(),
     AlertModule.forRoot()
   ],
-  entryComponents:[ProductNewComponent, ProductViewComponent, ProductEditComponent, ProductDeleteComponent]
+  entryComponents:[ProductNewComponent, ProductViewComponent, ProductEditComponent, ProductDeleteComponent, ProductCrudComponent]
 })
 export class ProductModule { }

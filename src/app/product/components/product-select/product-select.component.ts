@@ -28,7 +28,7 @@ export class ProductSelectComponent implements OnInit {
   }
 
   public getAllProducts() {
-    this.productService.getAllProducts()
+    this.productService.find()
     .subscribe(products => {console.log(products); this.products = products});
   }
 
