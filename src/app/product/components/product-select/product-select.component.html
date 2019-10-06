@@ -1,0 +1,5 @@
+
+<select class="custom-select">
+    <option selected>Choose...</option>
+    <option *ngFor="let product of products ; index as i" value="product._id">{{product._id}} - {{product.mial}}</option>
+</select>

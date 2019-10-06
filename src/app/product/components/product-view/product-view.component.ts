@@ -1,15 +1,18 @@
 import { Component, OnInit } from '@angular/core';
+import { BsModalRef } from 'ngx-bootstrap/modal';
+import { ProductModel } from '../../models/product.model';
 
 @Component({
-  selector: 'app-product-view',
+  selector: 'product-view',
   templateUrl: './product-view.component.html',
   styleUrls: ['./product-view.component.css']
 })
 export class ProductViewComponent implements OnInit {
 
-  constructor() { }
+  product: ProductModel;  
+  
+  constructor(private modal: BsModalRef) { }
 
-  ngOnInit() {
-  }
+  public ngOnInit() { }
 
 }

@@ -9,18 +9,33 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { MaterialModule } from './material.module';
 
+import { ModalModule, BsModalRef } from 'ngx-bootstrap/modal';
+import { AlertModule } from 'ngx-bootstrap/alert';
+
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+
 @NgModule({
   declarations: [
     AppComponent
   ],
   imports: [    
     BrowserModule,
+
+    FormsModule,
+    ReactiveFormsModule,
+
     HttpClientModule,
     AppRoutingModule,
     BrowserAnimationsModule,        
-    MaterialModule    
+    
+    MaterialModule, 
+    
+    ModalModule.forRoot(),
+    AlertModule.forRoot()
+    
   ],
-  providers: [],
+
+  providers: [BsModalRef],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -28,4 +28,8 @@ export class NotificationService {
     return this.http.get<NotificationModel>(`${this.api}/${id}`);
   }
 
+  createNotification(notification: NotificationModel): Observable<NotificationModel>{
+    return this.http.post<NotificationModel>(this.api, notification);
+  }
+
 }

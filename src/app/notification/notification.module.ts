@@ -1,23 +1,37 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
+import { ModalModule } from 'ngx-bootstrap/modal';
+
+import { MaterialModule } from '../material.module';
 import { NotificationRoutingModule } from './notification-routing.module';
 
-import { NotificationComponent } from './components/notification/notification.component';
-import { NotificationViewComponent } from './components/notification-view/notification-view.component';
-import { NotificationEditComponent } from './components/notification-edit/notification-edit.component';
-import { NotificationDeleteComponent } from './components/notification-delete/notification-delete.component';
+import { NotificationMainComponent } from './components/notification-main/notification-main.component';
+import { NotificationListComponent } from './components/notification-list/notification-list.component';
+import { NotificationModalNewComponent } from './components/notification-modal-new/notification-modal-new.component';
+import { NotificationModalViewComponent } from './components/notification-modal-view/notification-modal-view.component';
+import { ProductSelectComponent } from '../product/components/product-select/product-select.component';
+
 
 @NgModule({
   declarations: [
-    NotificationComponent, 
-    NotificationViewComponent, 
-    NotificationEditComponent, 
-    NotificationDeleteComponent
+    NotificationMainComponent,    
+    NotificationListComponent,    
+    NotificationModalNewComponent,
+    ProductSelectComponent,
+    NotificationModalViewComponent,    
   ],
   imports: [
     CommonModule,
-    NotificationRoutingModule
-  ]
+    NotificationRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
+    ModalModule.forRoot(),
+    MaterialModule
+    
+  ],
+  entryComponents: [NotificationModalNewComponent, NotificationModalViewComponent]
 })
 export class NotificationModule { }
