@@ -12,7 +12,7 @@ import { NotificationMainComponent } from './components/notification-main/notifi
 import { NotificationListComponent } from './components/notification-list/notification-list.component';
 import { NotificationModalNewComponent } from './components/notification-modal-new/notification-modal-new.component';
 import { NotificationModalViewComponent } from './components/notification-modal-view/notification-modal-view.component';
-import { ProductSelectComponent } from '../product/components/product-select/product-select.component';
+//import { ProductSelectComponent } from '../product/components/product-select/product-select.component';
 
 
 @NgModule({
@@ -20,7 +20,7 @@ import { ProductSelectComponent } from '../product/components/product-select/pro
     NotificationMainComponent,    
     NotificationListComponent,    
     NotificationModalNewComponent,
-    ProductSelectComponent,
+    //ProductSelectComponent,
     NotificationModalViewComponent,    
   ],
   imports: [
@@ -29,8 +29,10 @@ import { ProductSelectComponent } from '../product/components/product-select/pro
     FormsModule,
     ReactiveFormsModule,
     ModalModule.forRoot(),
-    MaterialModule
-    
+    MaterialModule    
+  ],
+  exports:[
+    NotificationMainComponent
   ],
   entryComponents: [NotificationModalNewComponent, NotificationModalViewComponent]
 })

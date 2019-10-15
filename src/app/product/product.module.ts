@@ -34,6 +34,10 @@ import { UtilModule } from '../util/util.module';
     UtilModule
 
   ],
+  exports: [
+    ProductMainComponent,
+    ProductSelectComponent
+  ],
   entryComponents: [ProductCrudComponent]
 })
 export class ProductModule { }

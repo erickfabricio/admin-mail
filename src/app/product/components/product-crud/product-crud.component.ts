@@ -162,7 +162,10 @@ export class ProductCrudComponent implements OnInit {
       
       //Api 
       this.productService.save(this.product)
-      .subscribe(product => {console.log("New product:" + product); this.product = product});
+      .subscribe(product => {
+        console.log("New product:" + product); 
+        this.product = product
+      });
 
       //Process
       this.process = true;
