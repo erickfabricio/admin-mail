@@ -1,7 +1,7 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
-import { NotificationModalNewComponent } from '../notification-modal-new/notification-modal-new.component';
+
 
 @Component({
   selector: 'notification-main',
@@ -16,14 +16,4 @@ export class NotificationMainComponent implements OnInit {
 
   ngOnInit() { }
 
-  newNotification() {
-    this.modal = this.modalService.show(NotificationModalNewComponent,  {
-      initialState: {
-        //action: "new",
-        //title: 'Modal title',
-        data: {}
-      }
-    });
-  }
- 
 }

@@ -9,15 +9,6 @@ import { ProductModel } from 'src/app/product/models/product.model';
 })
 export class ProductSelectComponent implements OnInit {
 
-  @Output() id = new EventEmitter<string>();
-
-  getId(e){
-    this.id.emit(e);
-  }
-
-
-  
-
   products: ProductModel[];
   product: ProductModel;
 

@@ -15,6 +15,7 @@ import { ProductSelectComponent } from './components/product-select/product-sele
 import { ProductCrudComponent } from './components/product-crud/product-crud.component';
 
 import { UtilModule } from '../util/util.module';
+import { MaterialModule } from '../material.module';
 
 
 @NgModule({
@@ -31,7 +32,8 @@ import { UtilModule } from '../util/util.module';
     ReactiveFormsModule,
     ModalModule.forRoot(),
     AlertModule.forRoot(),
-    UtilModule
+    UtilModule,
+    MaterialModule
 
   ],
   exports: [

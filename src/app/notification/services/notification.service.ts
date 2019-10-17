@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders} from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 
 import { NotificationModel } from '../models/notification.model';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { query } from '@angular/animations';
 
 @Injectable({
   providedIn: 'root'
@@ -18,18 +19,26 @@ export class NotificationService {
 
   constructor(private http: HttpClient) { }
 
-  getAllNotifications(): Observable<NotificationModel[]> {
-    return this.http.get<NotificationModel[]>(`${this.api}`).pipe(
+  find(): Observable<NotificationModel[]> {
+    return this.http.get<NotificationModel[]>(this.api).pipe(
       map(data => data.map(data => new NotificationModel().deserialize(data)))
     );
   }
 
-  getNotificationById(id: string): Observable<NotificationModel> {
+  findById(id: string): Observable<NotificationModel> {
     return this.http.get<NotificationModel>(`${this.api}/${id}`);
   }
 
-  createNotification(notification: NotificationModel): Observable<NotificationModel>{
+  save(notification: NotificationModel): Observable<NotificationModel>{
     return this.http.post<NotificationModel>(this.api, notification);
+  }
+
+  update(notification: NotificationModel): Observable<NotificationModel>{
+    return this.http.put<NotificationModel>(`${this.api}/${notification._id}`, notification);
+  }
+
+  remove(notification: NotificationModel): Observable<NotificationModel>{
+    return this.http.delete<NotificationModel>(`${this.api}/${notification._id}`);
   }
 
 }

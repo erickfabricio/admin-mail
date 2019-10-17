@@ -10,18 +10,16 @@ import { NotificationRoutingModule } from './notification-routing.module';
 
 import { NotificationMainComponent } from './components/notification-main/notification-main.component';
 import { NotificationListComponent } from './components/notification-list/notification-list.component';
-import { NotificationModalNewComponent } from './components/notification-modal-new/notification-modal-new.component';
-import { NotificationModalViewComponent } from './components/notification-modal-view/notification-modal-view.component';
-//import { ProductSelectComponent } from '../product/components/product-select/product-select.component';
+
+import { NotificationCrudComponent } from './components/notification-crud/notification-crud.component';
+
 
 
 @NgModule({
   declarations: [
     NotificationMainComponent,    
-    NotificationListComponent,    
-    NotificationModalNewComponent,
-    //ProductSelectComponent,
-    NotificationModalViewComponent,    
+    NotificationListComponent,        
+    NotificationCrudComponent,    
   ],
   imports: [
     CommonModule,
@@ -34,6 +32,6 @@ import { NotificationModalViewComponent } from './components/notification-modal-
   exports:[
     NotificationMainComponent
   ],
-  entryComponents: [NotificationModalNewComponent, NotificationModalViewComponent]
+  entryComponents: []
 })
 export class NotificationModule { }

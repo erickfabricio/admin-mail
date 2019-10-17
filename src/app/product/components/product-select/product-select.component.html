@@ -1,5 +1,16 @@
-
+<!--
 <select class="custom-select">
     <option selected>Choose...</option>
-    <option *ngFor="let product of products ; index as i" value="product._id">{{product._id}} - {{product.mial}}</option>
+    <option *ngFor="let product of products ; index as i" value="product._id">{{product._id}} - {{product.mail}}</option>
 </select>
+-->
+
+<h4>Select product</h4>
+<mat-form-field>
+    <mat-label>Product</mat-label>
+    <mat-select>
+        <mat-option *ngFor="let product of products" [value]="product._id">
+            {{product.mail}} - {{product._id}}
+        </mat-option>
+    </mat-select>
+</mat-form-field>
