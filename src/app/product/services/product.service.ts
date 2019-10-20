@@ -11,34 +11,41 @@ import { query } from '@angular/animations';
 })
 export class ProductService {
 
-  api : string = 'http://localhost:3000/api/products';
+  api : string = 'http://localhost:3000/api/products';  
 
   headers : HttpHeaders = new HttpHeaders({
-    "Content-Type": "application/json"
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IkFQUCIsIm5hbWUiOiJUZXN0LURldiIsInN0YXRlIjoiQSIsImlhdCI6MTU3MTU0MDQxNn0.gZcTHjD9hYzgAL0hh3nJpra55OVgRNdTImTIeDA3l5o'
   });
 
-  constructor(private http: HttpClient) { }
+  options = {
+    headers: this.headers
+  };
+
+  constructor(private http: HttpClient) { 
+    
+  }
 
   find(): Observable<ProductModel[]> {
-    return this.http.get<ProductModel[]>(this.api).pipe(
+    return this.http.get<ProductModel[]>(this.api, this.options).pipe(
       map(data => data.map(data => new ProductModel().deserialize(data)))
     );
   }
 
   findById(id: string): Observable<ProductModel> {
-    return this.http.get<ProductModel>(`${this.api}/${id}`);
+    return this.http.get<ProductModel>(`${this.api}/${id}`, this.options);
   }
 
   save(product: ProductModel): Observable<ProductModel>{
-    return this.http.post<ProductModel>(this.api, product);
+    return this.http.post<ProductModel>(this.api, product, this.options);
   }
 
   update(product: ProductModel): Observable<ProductModel>{
-    return this.http.put<ProductModel>(`${this.api}/${product._id}`, product);
+    return this.http.put<ProductModel>(`${this.api}/${product._id}`, product, this.options);
   }
 
   remove(product: ProductModel): Observable<ProductModel>{
-    return this.http.delete<ProductModel>(`${this.api}/${product._id}`);
+    return this.http.delete<ProductModel>(`${this.api}/${product._id}`, this.options);
   }
 
 }
