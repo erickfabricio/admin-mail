@@ -5,14 +5,16 @@ import { ProductModel } from '../models/product.model';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { query } from '@angular/animations';
+import { environment } from 'src/environments/environment';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductService {
-
-  api : string = 'http://localhost:3000/api/products';  
-
+  
+  api : string;  
+  
   headers : HttpHeaders = new HttpHeaders({
     'Content-Type': 'application/json',
     'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IkFQUCIsIm5hbWUiOiJUZXN0LURldiIsInN0YXRlIjoiQSIsImlhdCI6MTU3MTU0MDQxNn0.gZcTHjD9hYzgAL0hh3nJpra55OVgRNdTImTIeDA3l5o'
@@ -22,8 +24,8 @@ export class ProductService {
     headers: this.headers
   };
 
-  constructor(private http: HttpClient) { 
-    
+  constructor(private http: HttpClient) {    
+    this.api = `${environment.api}/products`
   }
 
   find(): Observable<ProductModel[]> {

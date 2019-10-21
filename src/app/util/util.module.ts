@@ -5,8 +5,7 @@ import { AlertModule } from 'ngx-bootstrap/alert';
 
 import { UtilRoutingModule } from './util-routing.module';
 import { AlertComponent } from './components/alert/alert.component';
-
-
+import { Service } from './classes/service';
 
 
 @NgModule({
@@ -16,7 +15,7 @@ import { AlertComponent } from './components/alert/alert.component';
     UtilRoutingModule,
     AlertModule.forRoot()
   ],
-  exports: [
+  exports: [    
     AlertComponent
   ]
 })
