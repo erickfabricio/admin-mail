@@ -1,0 +1,106 @@
+<div class="div-list container">
+
+    <!-- New product -->
+    <div class="div-list-header">
+        <h2>Products
+            <span>
+                <button type="button" class="btn btn-outline-success" matTooltip="Create new product"
+                    matTooltipPosition="after" matTooltipClass="info-tooltip"
+                    (click)="eventCrudEmitter('CREATE')">Create</button>
+            </span>
+        </h2>
+    </div>
+
+    <!-- Filter -->
+    <div class="div-list-filter">
+        <mat-form-field>
+            <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search">
+        </mat-form-field>
+    </div>
+
+    <!-- List products -->
+    <div class="div-list-table mat-elevation-z8">
+
+        <table mat-table [dataSource]="dataSource" matSort class="table-hover">
+
+            <!-- # -->
+            <ng-container matColumnDef="#">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> # </th>
+                <td mat-cell *matCellDef="let product; let i = index">
+                    {{dataSource.filteredData.indexOf(product) + 1}}
+                </td>
+            </ng-container>
+
+            <!-- Id -->
+            <ng-container matColumnDef="id">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Id </th>
+                <td mat-cell *matCellDef="let product"> {{product._id}} </td>
+            </ng-container>
+
+            <!-- Service -->
+            <ng-container matColumnDef="service">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Service </th>
+                <td mat-cell *matCellDef="let product"> {{product.service}} </td>
+            </ng-container>
+
+            <!-- Name -->
+            <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+                <td mat-cell *matCellDef="let product"> {{product.name}} </td>
+            </ng-container>
+
+            <!-- User -->
+            <ng-container matColumnDef="user">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> User </th>
+                <td mat-cell *matCellDef="let product"> {{product.user}} </td>
+            </ng-container>
+
+            <!-- Domain -->
+            <ng-container matColumnDef="domain">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Domain </th>
+                <td mat-cell *matCellDef="let product"> {{product.domain}} </td>
+            </ng-container>
+
+            <!-- Mail -->
+            <ng-container matColumnDef="mail">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Mail </th>
+                <td mat-cell *matCellDef="let product"> {{product.mail}} </td>
+            </ng-container>
+
+            <!-- Password -->
+            <ng-container matColumnDef="password">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Password </th>
+                <td mat-cell *matCellDef="let product"> {{product.password}} </td>
+            </ng-container>
+
+            <!-- Description -->
+            <ng-container matColumnDef="description">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Description </th>
+                <td mat-cell *matCellDef="let product"> {{product.description}} </td>
+            </ng-container>
+
+            <!-- State -->
+            <ng-container matColumnDef="state">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> State </th>
+                <td mat-cell *matCellDef="let product"> {{product.state}} </td>
+            </ng-container>
+
+            <!-- Date -->
+            <ng-container matColumnDef="date">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Date </th>
+                <td mat-cell *matCellDef="let product"> {{product.date | date:'medium'}} </td>
+            </ng-container>
+
+            <!-- Header Table -->
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let product; columns: displayedColumns;"
+                (click)="eventCrudEmitter('CRUD', product)"></tr>
+
+        </table>
+
+        <!-- Paginator -->
+        <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+
+    </div>
+
+</div>

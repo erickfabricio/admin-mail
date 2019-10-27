@@ -2,20 +2,18 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { MainRoutingModule } from './main-routing.module';
-import { MainComponent } from './components/main/main.component';
 import { MaterialModule } from '../material.module';
-import { ProductModule } from '../product/product.module';
-import { NotificationModule } from '../notification/notification.module';
+import { EntityModule } from '../entity/entity.module';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
 
 
 @NgModule({
-  declarations: [MainComponent],
+  declarations: [DashboardComponent],
   imports: [
     CommonModule,
     MainRoutingModule,
     MaterialModule,
-    ProductModule,
-    NotificationModule
+    EntityModule
   ]
 })
 export class MainModule { }
