@@ -27,20 +27,20 @@ export class EntityService {
     );
   }
 
-  findById(entity: string, id: string): Observable<EntityModel> {
-    return this.http.get<EntityModel>(`${environment.api}/${entity}/${id}`);
+  findById(entity: string, entityModel: EntityModel): Observable<EntityModel> {
+    return this.http.get<EntityModel>(`${environment.api}/${entity}/${entityModel._id}`, this.options);
   }
 
   save(entity: string, entityModel: EntityModel): Observable<EntityModel> {
-    return this.http.post<EntityModel>(`${environment.api}/${entity}`, entityModel);
+    return this.http.post<EntityModel>(`${environment.api}/${entity}`, entityModel, this.options);
   }
 
-  update(entity: string, id: string, entityModel: EntityModel): Observable<EntityModel> {
-    return this.http.put<EntityModel>(`${environment.api}/${entity}/${id}`, entityModel);
+  update(entity: string, entityModel: EntityModel): Observable<EntityModel> {    
+    return this.http.put<EntityModel>(`${environment.api}/${entity}/${entityModel._id}`, entityModel, this.options);
   }
 
-  remove(entity: string, id: string): Observable<EntityModel> {
-    return this.http.delete<EntityModel>(`${environment.api}/${entity}/${id}`);
+  remove(entity: string, entityModel: EntityModel): Observable<EntityModel> {
+    return this.http.delete<EntityModel>(`${environment.api}/${entity}/${entityModel._id}`, this.options);
   }
 
 }

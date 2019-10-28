@@ -110,7 +110,15 @@ export class ProductCrudComponent implements OnInit {
       //Assignment of values
       this.product = new ProductModel();
       //this.product.id = String(this.form.get('id').value).trim();      
+      this.product.service = String(this.form.get('service').value).trim();
       this.product.name = String(this.form.get('name').value).trim();
+      this.product.user = String(this.form.get('user').value).trim();
+      this.product.domain = String(this.form.get('domain').value).trim();
+      this.product.mail = String(this.form.get('mail').value).trim();
+      this.product.password = String(this.form.get('password').value).trim();
+      this.product.description = String(this.form.get('description').value).trim();
+      this.product.state = String(this.form.get('state').value).trim();
+      //this.product.date = String(this.form.get('date').value).trim();
 
       //Api 
       this.entityService.save(ProductModel.entity, this.product)
@@ -132,10 +140,18 @@ export class ProductCrudComponent implements OnInit {
     if (this.form.valid) {
       //Assignment of values      
       //this.product.id = String(this.form.get('id').value).trim();      
+      this.product.service = String(this.form.get('service').value).trim();
       this.product.name = String(this.form.get('name').value).trim();
+      this.product.user = String(this.form.get('user').value).trim();
+      this.product.domain = String(this.form.get('domain').value).trim();
+      this.product.mail = String(this.form.get('mail').value).trim();
+      this.product.password = String(this.form.get('password').value).trim();
+      this.product.description = String(this.form.get('description').value).trim();
+      this.product.state = String(this.form.get('state').value).trim();
+      //this.product.date = String(this.form.get('date').value).trim();
 
       //Api 
-      this.entityService.update(ProductModel.entity, this.product._id, this.product)
+      this.entityService.update(ProductModel.entity, this.product)
         .subscribe(product => { console.log("Update product"); this.product = <ProductModel>product });
 
       //Succes
@@ -151,7 +167,7 @@ export class ProductCrudComponent implements OnInit {
   onDelete() {
     this.action = "DELETE";
     //Api
-    this.entityService.remove(ProductModel.entity, this.product._id)
+    this.entityService.remove(ProductModel.entity, this.product)
       .subscribe(product => { this.product = <ProductModel>product; console.log("Delete product"); console.log(this.product); this.eventUpdateListEmitter(true) });
     //Succes
     let succesMessage = "Delete product: " + this.product.name;

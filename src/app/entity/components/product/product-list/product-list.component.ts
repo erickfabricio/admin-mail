@@ -20,12 +20,11 @@ export class ProductListComponent implements OnInit {
 
   //List
   products: ProductModel[];
-  product: ProductModel;
-  
+    
   constructor(private entityService: EntityService) { }
 
   ngOnInit() {
-    this.displayedColumns = ['#', 'id', 'service', 'name', 'user', 'domain', 'mail', 'password', 'description', 'state', 'date'];
+    this.displayedColumns = ['#', 'id', 'service', 'name', 'mail', 'description', 'state', 'date'];
     this.dataSource = new MatTableDataSource<ProductModel>();
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;    
@@ -34,7 +33,7 @@ export class ProductListComponent implements OnInit {
 
   find() {
     this.entityService.find(ProductModel.entity)
-      .subscribe(products => { console.log(products); this.products = <ProductModel[]>products; this.dataSource.data = this.products });
+      .subscribe(products => { /*console.log(products);*/ this.products = <ProductModel[]>products; this.dataSource.data = this.products });
   }
 
   applyFilter(filterValue: string) {
