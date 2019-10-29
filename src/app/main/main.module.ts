@@ -5,13 +5,18 @@ import { MainRoutingModule } from './main-routing.module';
 import { MaterialModule } from '../material.module';
 import { EntityModule } from '../entity/entity.module';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { SignUpComponent } from './components/sign-up/sign-up.component';
+import { LoginComponent } from './components/login/login.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
-  declarations: [DashboardComponent],
+  declarations: [DashboardComponent, SignUpComponent, LoginComponent],
   imports: [
     CommonModule,
-    MainRoutingModule,
+    MainRoutingModule,        
+    FormsModule,
+    ReactiveFormsModule,
     MaterialModule,
     EntityModule
   ]
