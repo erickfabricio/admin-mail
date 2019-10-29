@@ -14,6 +14,7 @@ export class SignUpComponent implements OnInit {
   //Form  
   form: FormGroup;
   user: UserModel;
+  hide: boolean = true;
 
   constructor(private entityService: EntityService, private _snackBar: MatSnackBar) { }
 
