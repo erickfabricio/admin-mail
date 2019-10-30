@@ -10,9 +10,12 @@ import { environment } from 'src/environments/environment.prod';
 })
 export class EntityService {
 
+  token: string = localStorage.getItem("token");
+
   headers : HttpHeaders = new HttpHeaders({
     'Content-Type': 'application/json',
-    'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IlBvc3RtYW4iLCJuYW1lIjoiVGVzdC1EZXYiLCJzdGF0ZSI6IkEiLCJpYXQiOjE1NzIxOTE1Njd9.PJEZWZKhWVOTsWAAIG-H2tTZp0g01LxVSifkQnhkJGQ'
+    'Authorization': 'Bearer ' + this.token
+    //'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IlBvc3RtYW4iLCJuYW1lIjoiVGVzdC1EZXYiLCJzdGF0ZSI6IkEiLCJpYXQiOjE1NzIxOTE1Njd9.PJEZWZKhWVOTsWAAIG-H2tTZp0g01LxVSifkQnhkJGQ'
   });
 
   options = {

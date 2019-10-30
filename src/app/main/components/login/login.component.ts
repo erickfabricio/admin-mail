@@ -44,12 +44,15 @@ export class LoginComponent implements OnInit {
         if (resp.ok) {
           let succesMessage = resp.menssage + " token: " + resp.token;
           this.openSnackBar(succesMessage, "X", "snackbar-success");
+
+          localStorage.setItem("token", resp.token);
+
           //Dashboard
           this.router.navigate(['main/dashboard']);
 
         } else {
           let succesMessage = resp.menssage;
-          this.openSnackBar(succesMessage, "X", "snackbar-success");
+          this.openSnackBar(succesMessage, "X", "snackbar-danger");
         }
 
       });
