@@ -4,6 +4,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { EntityService } from 'src/app/entity/services/entity.service';
 import { UserModel } from 'src/app/entity/models/user.model';
 import { SessionService } from '../../services/session.service';
+import { MainRoutingModule } from '../../main-routing.module';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'mail-login',
@@ -17,13 +19,9 @@ export class LoginComponent implements OnInit {
   user: UserModel;
   hide: boolean = true;
 
-  constructor(private entityService: EntityService, private sessionService: SessionService, private _snackBar: MatSnackBar) { }
+  constructor(private router: Router, private sessionService: SessionService, private _snackBar: MatSnackBar) { }
 
   ngOnInit() {
-    this.createForm();
-  }
-
-  createForm() {
     this.form = new FormGroup({
       mail: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', [Validators.required])
@@ -40,31 +38,22 @@ export class LoginComponent implements OnInit {
       this.user.password = String(this.form.get('password').value).trim();
 
       //Api      
-      this.sessionService.login(this.user).subscribe(resp => { 
+      this.sessionService.login(this.user).subscribe(resp => {
         console.log(resp);
 
-        if(resp.ok){        
-          let succesMessage = resp.menssage + " token: " + resp.token;        
+        if (resp.ok) {
+          let succesMessage = resp.menssage + " token: " + resp.token;
           this.openSnackBar(succesMessage, "X", "snackbar-success");
-        }else{
+          //Dashboard
+          this.router.navigate(['main/dashboard']);
+
+        } else {
           let succesMessage = resp.menssage;
           this.openSnackBar(succesMessage, "X", "snackbar-success");
         }
 
       });
 
-      
-
-      
-
-
-      
-
-
-      //Succes
-      //let succesMessage = "Login user: " + this.user.mail;
-      //this.openSnackBar(succesMessage, "X", "snackbar-success");
-      //this.createForm();
     } else {
       //Error
       let errorMessage = "¡Invalid form, " + this.validateForm() + "!";
