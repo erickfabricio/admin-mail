@@ -8,7 +8,7 @@ import { MainRoutingModule } from '../../main-routing.module';
 import {Router} from '@angular/router';
 
 @Component({
-  selector: 'mail-login',
+  selector: 'mail-main-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
