@@ -1,12 +1,9 @@
-.login-container {
+::ng-deep .login-container {
     max-width: 400px;
-    
-    justify-content: center;
-    align-items: center;
-    text-align:center;
+    text-align: center;
 }
 
-::ng-deep .login-header {
+::ng-deep .login-header.login-footer {
     display: flex;
     align-items: center;
     justify-content: center;

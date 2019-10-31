@@ -48,7 +48,7 @@ export class LoginComponent implements OnInit {
           localStorage.setItem("token", resp.token);
 
           //Dashboard
-          this.router.navigate(['main/dashboard']);
+          this.router.navigate(['dashboard']);
 
         } else {
           let succesMessage = resp.menssage;

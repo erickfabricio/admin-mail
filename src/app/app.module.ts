@@ -14,6 +14,9 @@ import { AlertModule } from 'ngx-bootstrap/alert';
 
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MainModule } from './main/main.module';
+
 @NgModule({
   declarations: [
     AppComponent
@@ -31,7 +34,11 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
     MaterialModule, 
     
     ModalModule.forRoot(),
-    AlertModule.forRoot()
+    AlertModule.forRoot(),
+
+    FlexLayoutModule,
+
+    MainModule
     
   ],
 
