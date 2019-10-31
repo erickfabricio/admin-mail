@@ -14,9 +14,23 @@ import { SessionModel } from '../models/session.model';
 export class SessionService {
   
   constructor(private http: HttpClient) { }
-  
+
   login(user: UserModel): Observable<any> {
     return this.http.post(`http://localhost:3000/api/session/login`, user);
+  }
+
+  validate(): Observable<any> {
+    
+    let headers: HttpHeaders = new HttpHeaders({
+      'Content-Type': 'application/json; charset=utf-8',
+      'Authorization': 'Bearer ' + localStorage.getItem("token")
+    });
+
+    let options = {
+      headers: headers
+    };
+        
+    return this.http.get(`http://localhost:3000/api/session/validate`, options);
   }
 
 }

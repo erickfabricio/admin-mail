@@ -8,17 +8,30 @@ import { SessionService } from '../services/session.service';
 })
 export class AuthGuard implements CanActivate {
 
-  constructor(private sessionService: SessionService, private router: Router){
+  constructor(private sessionService: SessionService, private router: Router) { }
 
-  }
+  valid: boolean = false;
 
-  canActivate() {
-    if(localStorage.getItem("token")){
-      return true;
-    }else{
-      this.router.navigate(['/main/login']);
+  async canActivate() {
+    if (localStorage.getItem("token")) {
+
+      let resp = await this.sessionService.validate().subscribe(resp => {
+        this.valid = resp.ok;
+        console.log(resp);
+      });
+
+
+      console.log(this.valid);
+      return this.valid;
+
+    } else {
+
+      this.router.navigate(['/login']);
       return false;
     }
+
+
+
   }
-  
+
 }
