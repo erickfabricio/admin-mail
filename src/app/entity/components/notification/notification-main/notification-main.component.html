@@ -1,1 +1,22 @@
-<p>notification-main works!</p>
+<div class="container">
+
+    <!-- Tags -->
+    <mat-tab-group mat-align-tabs="start" #tabGroup (selectedTabChange)="onChangeTab($event)"
+        [ngClass]="{'header-less-tabs': view == 'LIST'}">
+
+
+        <mat-tab label="List" #tabList select>
+            <div class="container-mat-tab">
+                <mail-entity-notification-list #list></mail-entity-notification-list>
+            </div>
+        </mat-tab>
+
+        <mat-tab label="" #tabCrud disabled>
+            <div class="container-mat-tab">
+                <mail-entity-notification-crud #crud></mail-entity-notification-crud>
+            </div>
+        </mat-tab>
+
+    </mat-tab-group>
+
+</div>

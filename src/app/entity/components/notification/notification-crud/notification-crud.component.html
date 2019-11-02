@@ -1,1 +1,136 @@
-<p>notification-crud works!</p>
+<div class="div-crud container">
+
+    <!-- HEADER -->
+    <div class="div-crud-header">
+        <h4 [ngSwitch]="action">
+
+            {{title}}
+
+            <span *ngSwitchCase="'CREATE'">
+                <button type="button" class="btn btn-outline-success" (click)="onCreate()">Create</button>
+            </span>
+
+            <span *ngSwitchCase="'CRUD'">
+                <button type="button" class="btn btn-outline-warning" (click)="onUpdate()">Update</button>
+                <button type="button" class="btn btn-outline-danger" (click)="onDelete()">Delete</button>
+            </span>
+
+        </h4>
+    </div>
+
+    <!-- BODY -->
+    <div class="div-crud-form">
+        <form [formGroup]="form">
+
+            <!-- id -->
+            <div class="div-crud-form-input input-container" *ngIf="visibleControls.id">
+                <mat-form-field>
+                    <input matInput placeholder="Id" title="Id" type="text" formControlName="id">
+                </mat-form-field>
+            </div>
+
+            <!-- product -->
+            <div class="div-crud-form-input input-container" *ngIf="visibleControls.product">
+                <mat-form-field>
+                    <mat-select placeholder="Product" title="Product" formControlName="product">
+                        <mat-option *ngFor="let product of products" value=product._id>
+                            {{product._id}} - {{product.mail}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+            <!-- state -->
+            <div class="div-crud-form-input input-container" *ngIf="visibleControls.state">
+                <mat-form-field>
+                    <mat-select placeholder="State" title="State" formControlName="state">
+                        <mat-option value="option">Option...</mat-option>
+                        <mat-option value="A">Active</mat-option>
+                        <mat-option value="I">Inactive</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+            <!-- creationDate -->
+            <div class="div-crud-form-input input-container" *ngIf="visibleControls.creationDate">
+                <mat-form-field>
+                    <input matInput [matDatepicker]="picker" placeholder="Creation date" title="Creation date"
+                        formControlName="creationDate">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+            </div>
+
+            <!-- sentDate -->
+            <div class="div-crud-form-input input-container" *ngIf="visibleControls.sentDate">
+                <mat-form-field>
+                    <input matInput [matDatepicker]="picker" placeholder="Sent date" title="Sent date"
+                        formControlName="sentDate">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+            </div>
+
+            <!-- menssage -->
+
+            <!-- to -->
+            <div class="div-crud-form-input input-container" *ngIf="visibleControls.to">
+                <mat-form-field>
+                    <input matInput placeholder="To" title="To" #inputTo type="text" formControlTo="to" maxlength="30">
+                    <mat-error *ngIf="form.get('to').invalid">{{getErrorMessageTo()}}</mat-error>
+                    <mat-hint align="end">{{inputTo.value?.length || 0}}/30</mat-hint>
+                </mat-form-field>
+            </div>
+
+            <!-- cc -->
+            <div class="div-crud-form-input input-container" *ngIf="visibleControls.cc">
+                <mat-form-field>
+                    <input matInput placeholder="Cc" title="Cc" #inputCc type="text" formControlCc="cc" maxlength="30">
+                    <mat-error *ngIf="form.get('cc').invalid">{{getErrorMessageCc()}}</mat-error>
+                    <mat-hint align="end">{{inputCc.value?.length || 0}}/30</mat-hint>
+                </mat-form-field>
+            </div>
+
+            <!-- cco -->
+            <div class="div-crud-form-input input-container" *ngIf="visibleControls.cco">
+                <mat-form-field>
+                    <input matInput placeholder="Cco" title="Cco" #inputCc type="text" formControlCc="cco" maxlength="30">
+                    <mat-error *ngIf="form.get('cco').invalid">{{getErrorMessageCco()}}</mat-error>
+                    <mat-hint align="end">{{inputCco.value?.length || 0}}/30</mat-hint>
+                </mat-form-field>
+            </div>
+
+            <!-- subject -->
+            <div class="div-crud-form-input input-container" *ngIf="visibleControls.subject">
+                <mat-form-field>
+                    <input matInput placeholder="Subject" title="Subject" #inputSubject type="text"
+                        formControlSubject="subject" maxlength="30">
+                    <mat-error *ngIf="form.get('subject').invalid">{{getErrorMessageSubject()}}</mat-error>
+                    <mat-hint align="end">{{inputSubject.value?.length || 0}}/30</mat-hint>
+                </mat-form-field>
+            </div>
+
+            <!-- html -->
+            <div class="div-crud-form-input input-container" *ngIf="visibleControls.html">
+                <mat-form-field>
+                    <input matInput placeholder="Html" title="Html" #inputHtml type="text" formControlHtml="html"
+                        maxlength="30">
+                    <mat-error *ngIf="form.get('html').invalid">{{getErrorMessageHtml()}}</mat-error>
+                    <mat-hint align="end">{{inputHtml.value?.length || 0}}/30</mat-hint>
+                </mat-form-field>
+            </div>
+
+            <!-- attachments -->
+            <div class="div-crud-form-input input-container" *ngIf="visibleControls.attachments">
+                <mat-form-field>
+                    <input matInput placeholder="Attachments" title="Attachments" #inputAttachments type="text"
+                        formControlAttachments="attachments" maxlength="30">
+                    <mat-error *ngIf="form.get('attachments').invalid">{{getErrorMessageAttachments()}}</mat-error>
+                    <mat-hint align="end">{{inputAttachments.value?.length || 0}}/30</mat-hint>
+                </mat-form-field>
+            </div>
+
+        </form>
+    </div>
+
+</div>
