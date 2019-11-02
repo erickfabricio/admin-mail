@@ -3,11 +3,13 @@ import { MessageModel } from './message.model';
 
 export class NotificationModel extends EntityModel {
 
-    public _id: string;
-    public product: string;
-    public creationDate: Date;
-	public sentDate: Date;
-	public state: string;
-    public menssage: MessageModel;
-    
+    static entity: string = "notifications";
+
+    _id: string;
+    product: string;
+    creationDate: Date;
+    sentDate: Date;
+    state: string;
+    menssage: MessageModel;
+
 }

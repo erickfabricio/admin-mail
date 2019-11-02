@@ -14,15 +14,14 @@ export class AuthGuard implements CanActivate {
 
   async canActivate() {
     if (localStorage.getItem("token")) {
-
+      /*
       let resp = await this.sessionService.validate().subscribe(resp => {
         this.valid = resp.ok;
         console.log(resp);
       });
-
-
       console.log(this.valid);
-      return this.valid;
+      */
+      return true;
 
     } else {
 

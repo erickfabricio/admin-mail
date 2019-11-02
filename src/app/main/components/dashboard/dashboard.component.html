@@ -13,9 +13,11 @@
             fixedTopGap="56">
 
             <mat-nav-list>
-                <button mat-list-item (click)="viewOption('Entity')">Entity</button>                
-                <button mat-list-item (click)="viewOption('Product')">Product</button>
-                <button mat-list-item (click)="viewOption('Notification')">Notification</button>
+                
+                <button mat-list-item (click)="viewOption('Entity')"><mat-icon color="primary">find_in_page</mat-icon>Entities</button>
+                <button mat-list-item (click)="viewOption('Product')"><mat-icon color="primary">email</mat-icon>Product</button>
+                <button mat-list-item (click)="viewOption('Notification')"><mat-icon color="primary">notifications_active</mat-icon>Notification</button>
+                
             </mat-nav-list>
 
         </mat-sidenav>
