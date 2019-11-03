@@ -10,6 +10,6 @@ export class NotificationModel extends EntityModel {
     creationDate: Date;
     sentDate: Date;
     state: string;
-    menssage: MessageModel;
+    message: MessageModel;
 
 }

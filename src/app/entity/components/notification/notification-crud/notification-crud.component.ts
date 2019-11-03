@@ -4,6 +4,9 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { EntityService } from 'src/app/entity/services/entity.service';
 import { NotificationModel } from 'src/app/entity/models/notification.model';
 import { ProductModel } from 'src/app/entity/models/product.model';
+import {COMMA, ENTER, SPACE} from '@angular/cdk/keycodes';
+import {MatChipInputEvent} from '@angular/material/chips';
+import { MessageModel } from 'src/app/entity/models/message.model';
 
 @Component({
   selector: 'mail-entity-notification-crud',
@@ -52,7 +55,6 @@ export class NotificationCrudComponent implements OnInit {
       state: new FormControl('', [Validators.required]),
       creationDate: new FormControl({ value: '', disabled: true }),
       sentDate: new FormControl({ value: '', disabled: true }),
-      
       to: new FormControl('', [Validators.required]),
       cc: new FormControl(''),
       cco: new FormControl(''),
@@ -64,7 +66,7 @@ export class NotificationCrudComponent implements OnInit {
 
   findProduct() {
     this.entityService.find(ProductModel.entity)
-      .subscribe(products => {this.products = <ProductModel[]>products});
+      .subscribe(products => { this.products = <ProductModel[]>products });
   }
 
   show() {
@@ -83,18 +85,30 @@ export class NotificationCrudComponent implements OnInit {
 
   create() {
     this.title = "Create notification";
-    
     this.visibleControls.id = false;
     this.visibleControls.creationDate = false;
     this.visibleControls.sentDate = false;
-    
     this.form.reset();
     this.notification = null;
   }
 
-  crud() {
+  crud() {    
     this.title = "CRUD notification";
+    
     this.form.get('id').setValue(this.notification._id);
+
+    //this.products.find(product.name ==this.notification.product);
+
+    this.form.get('product').setValue(this.notification.product);
+    this.form.get('state').setValue(this.notification.state);
+    this.form.get('creationDate').setValue(this.notification.creationDate);
+    this.form.get('sentDate').setValue(this.notification.sentDate);            
+    this.emailsTo = this.notification.message.to.split(',');
+    this.emailsCc = this.notification.message.cc.split(',');
+    this.emailsCco = this.notification.message.cco.split(',');
+    this.form.get('subject').setValue(this.notification.message.subject);
+    this.form.get('html').setValue(this.notification.message.html);
+    //this.form.get('attachments').setValue(this.notification.message.attachments);    
 
     this.visibleControls = {
       id: true,
@@ -125,7 +139,7 @@ export class NotificationCrudComponent implements OnInit {
         .subscribe(notification => { console.log("New notification"); this.notification = <NotificationModel>notification; this.eventUpdateListEmitter(true) });
 
       //Succes
-      let succesMessage = "New notification: " + this.notification.menssage.subject;
+      let succesMessage = "New notification: " + this.notification.message.subject;
       this.openSnackBar(succesMessage, "X", "snackbar-success");
       this.createForm();
     } else {
@@ -147,7 +161,7 @@ export class NotificationCrudComponent implements OnInit {
         .subscribe(notification => { console.log("Update notification"); this.notification = <NotificationModel>notification });
 
       //Succes
-      let succesMessage = "Update notification: " + this.notification.menssage.subject;
+      let succesMessage = "Update notification: " + this.notification.message.subject;
       this.openSnackBar(succesMessage, "X", "snackbar-success");
     } else {
       //Error
@@ -162,7 +176,7 @@ export class NotificationCrudComponent implements OnInit {
     this.entityService.remove(NotificationModel.entity, this.notification)
       .subscribe(notification => { this.notification = <NotificationModel>notification; console.log("Delete notification"); console.log(this.notification); this.eventUpdateListEmitter(true) });
     //Succes
-    let succesMessage = "Delete notification: " + this.notification.menssage.subject;
+    let succesMessage = "Delete notification: " + this.notification.message.subject;
     this.openSnackBar(succesMessage, "X", "snackbar-success");
   }
 
@@ -170,21 +184,21 @@ export class NotificationCrudComponent implements OnInit {
 
   validateForm() {
 
-    if(this.form.get('product').invalid){
+    if (this.form.get('product').invalid) {
       return this.getErrorMessageProduct();
     }
 
-    
+
 
   }
 
-  getErrorMessageProduct() {    
+  getErrorMessageProduct() {
     if (this.form.get('product').hasError('required')) {
       return 'Product is required';
     }
   }
 
-  getErrorMessageState() {    
+  getErrorMessageState() {
     if (this.form.get('state').hasError('required')) {
       return 'State is required';
     }
@@ -196,29 +210,29 @@ export class NotificationCrudComponent implements OnInit {
     }
   }
 
-  getErrorMessageCc() {    
-    
+  getErrorMessageCc() {
+
   }
 
-  getErrorMessageCco() {    
-    
+  getErrorMessageCco() {
+
   }
 
-  getErrorMessageSubject() {    
-    
+  getErrorMessageSubject() {
+
   }
 
-  getErrorMessageHtml() {    
-    
+  getErrorMessageHtml() {
+
   }
 
-  getErrorMessageAttachments() {    
-    
+  getErrorMessageAttachments() {
+
   }
 
-  
 
-  
+
+
 
   openSnackBar(message: string, action: string, style: string) {
     this._snackBar.open(
@@ -238,6 +252,39 @@ export class NotificationCrudComponent implements OnInit {
   eventUpdateListEmitter(isUpdate: boolean) {
     if (isUpdate) {
       this.eventUpdateList.emit(isUpdate);
+    }
+  }
+
+  //************ UTIL ************//
+
+  //PRUEBA
+  visible = true;
+  selectable = true;
+  removable = true;
+  addOnBlur = true;
+
+  readonly separatorKeysCodes: number[] = [ENTER, COMMA, SPACE];
+
+  emailsTo: String[] = [];
+  emailsCc: String[] = [];
+  emailsCco: String[] = [];
+
+
+  addEmail(event: MatChipInputEvent, emails: String[]): void {
+    const input = event.input;
+    const value = event.value;
+    if ((value || '').trim()) {
+      emails.push(value.trim());
+    }    
+    if (input) {
+      input.value = '';
+    }
+  }
+
+  removeEmail(email: String, emails: String[]): void {
+    const index = emails.indexOf(email);
+    if (index >= 0) {
+      emails.splice(index, 1);
     }
   }
 

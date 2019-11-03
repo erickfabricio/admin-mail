@@ -20,7 +20,7 @@
 
     <!-- BODY -->
     <div class="div-crud-form">
-        <form [formGroup]="form">
+        <form [formGroup]="form" [style.fontSize.px]=15>
 
             <!-- id -->
             <div class="div-crud-form-input input-container" *ngIf="visibleControls.id">
@@ -32,10 +32,14 @@
             <!-- product -->
             <div class="div-crud-form-input input-container" *ngIf="visibleControls.product">
                 <mat-form-field>
-                    <mat-select placeholder="Product" title="Product" formControlName="product">
+                    <mat-select placeholder="Product" title="Product" formControlName="product" selected='default'>
+
+                        <mat-option value=default>Default</mat-option>
+
                         <mat-option *ngFor="let product of products" value=product._id>
                             {{product._id}} - {{product.mail}}
                         </mat-option>
+
                     </mat-select>
                 </mat-form-field>
             </div>
@@ -44,9 +48,10 @@
             <div class="div-crud-form-input input-container" *ngIf="visibleControls.state">
                 <mat-form-field>
                     <mat-select placeholder="State" title="State" formControlName="state">
-                        <mat-option value="option">Option...</mat-option>
-                        <mat-option value="A">Active</mat-option>
-                        <mat-option value="I">Inactive</mat-option>
+                        <mat-option value="option">Option...</mat-option>                        
+                        <mat-option value="P">Pending</mat-option>
+                        <mat-option value="S">Sent</mat-option>
+                        <mat-option value="E">Error</mat-option>
                     </mat-select>
                 </mat-form-field>
             </div>
@@ -76,27 +81,48 @@
             <!-- to -->
             <div class="div-crud-form-input input-container" *ngIf="visibleControls.to">
                 <mat-form-field>
-                    <input matInput placeholder="To" title="To" #inputTo type="text" formControlTo="to" maxlength="30">
+                    <mat-chip-list #chipListTo>
+                        <mat-chip *ngFor="let email of emailsTo" [selectable]="selectable" [removable]="removable"
+                            (removed)="removeEmail(email, emailsTo)">{{email}}
+                            <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                        </mat-chip>
+                        <input placeholder="To" [matChipInputFor]="chipListTo"
+                            [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur"
+                            (matChipInputTokenEnd)="addEmail($event, emailsTo)" formControlName="to">
+                    </mat-chip-list>
                     <mat-error *ngIf="form.get('to').invalid">{{getErrorMessageTo()}}</mat-error>
-                    <mat-hint align="end">{{inputTo.value?.length || 0}}/30</mat-hint>
                 </mat-form-field>
             </div>
 
             <!-- cc -->
             <div class="div-crud-form-input input-container" *ngIf="visibleControls.cc">
                 <mat-form-field>
-                    <input matInput placeholder="Cc" title="Cc" #inputCc type="text" formControlCc="cc" maxlength="30">
+                    <mat-chip-list #chipListCc>
+                        <mat-chip *ngFor="let email of emailsCc" [selectable]="selectable" [removable]="removable"
+                            (removed)="removeEmail(email, emailsCc)">{{email}}
+                            <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                        </mat-chip>
+                        <input placeholder="Cc" [matChipInputFor]="chipListCc"
+                            [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur"
+                            (matChipInputTokenEnd)="addEmail($event, emailsCc)" formControlName="cc">
+                    </mat-chip-list>
                     <mat-error *ngIf="form.get('cc').invalid">{{getErrorMessageCc()}}</mat-error>
-                    <mat-hint align="end">{{inputCc.value?.length || 0}}/30</mat-hint>
                 </mat-form-field>
             </div>
 
             <!-- cco -->
             <div class="div-crud-form-input input-container" *ngIf="visibleControls.cco">
                 <mat-form-field>
-                    <input matInput placeholder="Cco" title="Cco" #inputCc type="text" formControlCc="cco" maxlength="30">
+                    <mat-chip-list #chipListCco>
+                        <mat-chip *ngFor="let email of emailsCco" [selectable]="selectable" [removable]="removable"
+                            (removed)="removeEmail(email, emailsCco)">{{email}}
+                            <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                        </mat-chip>
+                        <input placeholder="Cco" [matChipInputFor]="chipListCco"
+                            [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur"
+                            (matChipInputTokenEnd)="addEmail($event, emailsCco)" formControlName="cco">
+                    </mat-chip-list>
                     <mat-error *ngIf="form.get('cco').invalid">{{getErrorMessageCco()}}</mat-error>
-                    <mat-hint align="end">{{inputCco.value?.length || 0}}/30</mat-hint>
                 </mat-form-field>
             </div>
 
@@ -104,19 +130,17 @@
             <div class="div-crud-form-input input-container" *ngIf="visibleControls.subject">
                 <mat-form-field>
                     <input matInput placeholder="Subject" title="Subject" #inputSubject type="text"
-                        formControlSubject="subject" maxlength="30">
+                        formControlName="subject" maxlength="100">
                     <mat-error *ngIf="form.get('subject').invalid">{{getErrorMessageSubject()}}</mat-error>
-                    <mat-hint align="end">{{inputSubject.value?.length || 0}}/30</mat-hint>
+                    <mat-hint align="end">{{inputSubject.value?.length || 0}}/100</mat-hint>
                 </mat-form-field>
             </div>
 
             <!-- html -->
             <div class="div-crud-form-input input-container" *ngIf="visibleControls.html">
                 <mat-form-field>
-                    <input matInput placeholder="Html" title="Html" #inputHtml type="text" formControlHtml="html"
-                        maxlength="30">
-                    <mat-error *ngIf="form.get('html').invalid">{{getErrorMessageHtml()}}</mat-error>
-                    <mat-hint align="end">{{inputHtml.value?.length || 0}}/30</mat-hint>
+                    <textarea matInput placeholder="Html" title="Html" #inputHtml formControlName="html"></textarea>
+                    <mat-error *ngIf="form.get('html').invalid">{{getErrorMessageHtml()}}</mat-error>                    
                 </mat-form-field>
             </div>
 
@@ -124,7 +148,7 @@
             <div class="div-crud-form-input input-container" *ngIf="visibleControls.attachments">
                 <mat-form-field>
                     <input matInput placeholder="Attachments" title="Attachments" #inputAttachments type="text"
-                        formControlAttachments="attachments" maxlength="30">
+                        formControlName="attachments" maxlength="30">
                     <mat-error *ngIf="form.get('attachments').invalid">{{getErrorMessageAttachments()}}</mat-error>
                     <mat-hint align="end">{{inputAttachments.value?.length || 0}}/30</mat-hint>
                 </mat-form-field>
