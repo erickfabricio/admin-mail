@@ -97,9 +97,11 @@ export class NotificationCrudComponent implements OnInit {
     
     this.form.get('id').setValue(this.notification._id);
 
-    //this.products.find(product.name ==this.notification.product);
-
+    //const product = this.products.find(product => product._id == this.notification.product);
     this.form.get('product').setValue(this.notification.product);
+
+
+    //this.form.get('product').setValue(this.notification.product);
     this.form.get('state').setValue(this.notification.state);
     this.form.get('creationDate').setValue(this.notification.creationDate);
     this.form.get('sentDate').setValue(this.notification.sentDate);            
@@ -133,7 +135,10 @@ export class NotificationCrudComponent implements OnInit {
       this.notification = new NotificationModel();
       //this.notification.id = String(this.form.get('id').value).trim();      
       this.notification.product = String(this.form.get('product').value).trim();
+      this.notification.state = String(this.form.get('state').value).trim();
+      this.notification.message.to = this.emailsTo.toString();
 
+      
       //Api 
       this.entityService.save(NotificationModel.entity, this.notification)
         .subscribe(notification => { console.log("New notification"); this.notification = <NotificationModel>notification; this.eventUpdateListEmitter(true) });
@@ -186,6 +191,14 @@ export class NotificationCrudComponent implements OnInit {
 
     if (this.form.get('product').invalid) {
       return this.getErrorMessageProduct();
+    }
+
+    if (this.form.get('state').invalid) {
+      return this.getErrorMessageState();
+    }
+
+    if (this.form.get('to').invalid) {
+      return this.getErrorMessageTo();
     }
 
 
@@ -286,6 +299,10 @@ export class NotificationCrudComponent implements OnInit {
     if (index >= 0) {
       emails.splice(index, 1);
     }
+  }
+
+  validateEmails(emails: String[]){
+    
   }
 
 }

@@ -32,14 +32,10 @@
             <!-- product -->
             <div class="div-crud-form-input input-container" *ngIf="visibleControls.product">
                 <mat-form-field>
-                    <mat-select placeholder="Product" title="Product" formControlName="product" selected='default'>
-
-                        <mat-option value=default>Default</mat-option>
-
-                        <mat-option *ngFor="let product of products" value=product._id>
+                    <mat-select placeholder="Product" title="Product" formControlName="product">
+                        <mat-option *ngFor="let product of products" [value]=product._id>
                             {{product._id}} - {{product.mail}}
                         </mat-option>
-
                     </mat-select>
                 </mat-form-field>
             </div>
@@ -47,8 +43,7 @@
             <!-- state -->
             <div class="div-crud-form-input input-container" *ngIf="visibleControls.state">
                 <mat-form-field>
-                    <mat-select placeholder="State" title="State" formControlName="state">
-                        <mat-option value="option">Option...</mat-option>                        
+                    <mat-select placeholder="State" title="State" formControlName="state">                        
                         <mat-option value="P">Pending</mat-option>
                         <mat-option value="S">Sent</mat-option>
                         <mat-option value="E">Error</mat-option>
@@ -59,20 +54,16 @@
             <!-- creationDate -->
             <div class="div-crud-form-input input-container" *ngIf="visibleControls.creationDate">
                 <mat-form-field>
-                    <input matInput [matDatepicker]="picker" placeholder="Creation date" title="Creation date"
+                    <input matInput placeholder="Creation date" title="Creation date" type="text"
                         formControlName="creationDate">
-                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                    <mat-datepicker #picker></mat-datepicker>
                 </mat-form-field>
             </div>
 
             <!-- sentDate -->
             <div class="div-crud-form-input input-container" *ngIf="visibleControls.sentDate">
                 <mat-form-field>
-                    <input matInput [matDatepicker]="picker" placeholder="Sent date" title="Sent date"
+                    <input matInput placeholder="Sent date" title="Sent date" type="text"
                         formControlName="sentDate">
-                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                    <mat-datepicker #picker></mat-datepicker>
                 </mat-form-field>
             </div>
 
@@ -140,7 +131,7 @@
             <div class="div-crud-form-input input-container" *ngIf="visibleControls.html">
                 <mat-form-field>
                     <textarea matInput placeholder="Html" title="Html" #inputHtml formControlName="html"></textarea>
-                    <mat-error *ngIf="form.get('html').invalid">{{getErrorMessageHtml()}}</mat-error>                    
+                    <mat-error *ngIf="form.get('html').invalid">{{getErrorMessageHtml()}}</mat-error>
                 </mat-form-field>
             </div>
 
