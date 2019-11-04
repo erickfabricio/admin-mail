@@ -1,11 +1,11 @@
 import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators, ValidatorFn } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { EntityService } from 'src/app/entity/services/entity.service';
 import { NotificationModel } from 'src/app/entity/models/notification.model';
 import { ProductModel } from 'src/app/entity/models/product.model';
-import {COMMA, ENTER, SPACE} from '@angular/cdk/keycodes';
-import {MatChipInputEvent} from '@angular/material/chips';
+import { COMMA, ENTER, SPACE } from '@angular/cdk/keycodes';
+import { MatChipInputEvent } from '@angular/material/chips';
 import { MessageModel } from 'src/app/entity/models/message.model';
 
 @Component({
@@ -27,7 +27,11 @@ export class NotificationCrudComponent implements OnInit {
   //Product
   products: ProductModel[];
 
-  constructor(private entityService: EntityService, private _snackBar: MatSnackBar) { }
+  emailPattern: any = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+  constructor(private entityService: EntityService, private _snackBar: MatSnackBar) {
+
+  }
 
   ngOnInit() {
     this.title = "CRUD";
@@ -55,7 +59,9 @@ export class NotificationCrudComponent implements OnInit {
       state: new FormControl('', [Validators.required]),
       creationDate: new FormControl({ value: '', disabled: true }),
       sentDate: new FormControl({ value: '', disabled: true }),
-      to: new FormControl('', [Validators.required]),
+      to: new FormControl('', Validators.compose([Validators.required])),
+      //to: new FormControl('', Validators.compose([Validators.required, this.validateEmailsTo])),
+      //to: new FormControl('', Validators.compose([Validators.required, this.validateEmails(this.emailsTo)])),
       cc: new FormControl(''),
       cco: new FormControl(''),
       subject: new FormControl('', [Validators.required]),
@@ -92,9 +98,9 @@ export class NotificationCrudComponent implements OnInit {
     this.notification = null;
   }
 
-  crud() {    
+  crud() {
     this.title = "CRUD notification";
-    
+
     this.form.get('id').setValue(this.notification._id);
 
     //const product = this.products.find(product => product._id == this.notification.product);
@@ -104,7 +110,7 @@ export class NotificationCrudComponent implements OnInit {
     //this.form.get('product').setValue(this.notification.product);
     this.form.get('state').setValue(this.notification.state);
     this.form.get('creationDate').setValue(this.notification.creationDate);
-    this.form.get('sentDate').setValue(this.notification.sentDate);            
+    this.form.get('sentDate').setValue(this.notification.sentDate);
     this.emailsTo = this.notification.message.to.split(',');
     this.emailsCc = this.notification.message.cc.split(',');
     this.emailsCco = this.notification.message.cco.split(',');
@@ -138,7 +144,7 @@ export class NotificationCrudComponent implements OnInit {
       this.notification.state = String(this.form.get('state').value).trim();
       this.notification.message.to = this.emailsTo.toString();
 
-      
+
       //Api 
       this.entityService.save(NotificationModel.entity, this.notification)
         .subscribe(notification => { console.log("New notification"); this.notification = <NotificationModel>notification; this.eventUpdateListEmitter(true) });
@@ -197,7 +203,9 @@ export class NotificationCrudComponent implements OnInit {
       return this.getErrorMessageState();
     }
 
-    if (this.form.get('to').invalid) {
+    console.log("this.form.get('to').invalid:" + this.form.get('to').invalid);
+    console.log("this.form.get('to').hasError('invalidEmail'):" + this.form.get('to').hasError('invalidEmail'));
+    if (this.form.get('to').invalid || this.form.get('to').hasError('invalidEmail')) {
       return this.getErrorMessageTo();
     }
 
@@ -217,9 +225,16 @@ export class NotificationCrudComponent implements OnInit {
     }
   }
 
-  getErrorMessageTo() {    
+  getErrorMessageTo() {
     if (this.form.get('to').hasError('required')) {
       return 'To is required';
+    }
+    if (this.form.get('to').hasError('invalidEmail')) {
+      for (var email of this.emailsTo) {
+        if (!this.regExpEmail.test(email)) {
+          return 'Email of To:' + email + ' is invalid';
+        }
+      }
     }
   }
 
@@ -278,31 +293,52 @@ export class NotificationCrudComponent implements OnInit {
 
   readonly separatorKeysCodes: number[] = [ENTER, COMMA, SPACE];
 
-  emailsTo: String[] = [];
-  emailsCc: String[] = [];
-  emailsCco: String[] = [];
+  regExpEmail: RegExp = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  emailsTo: string[] = [];
+  emailsCc: string[] = [];
+  emailsCco: string[] = [];
 
 
-  addEmail(event: MatChipInputEvent, emails: String[]): void {
+  addEmail(event: MatChipInputEvent, emails: string[]): void {
     const input = event.input;
     const value = event.value;
     if ((value || '').trim()) {
       emails.push(value.trim());
-    }    
+    }
     if (input) {
       input.value = '';
     }
   }
 
-  removeEmail(email: String, emails: String[]): void {
+  removeEmail(email: string, emails: string[]): void {
     const index = emails.indexOf(email);
     if (index >= 0) {
       emails.splice(index, 1);
     }
   }
 
-  validateEmails(emails: String[]){
-    
+  validateEmails(emails: string[]): ValidatorFn {
+    return (control: FormControl): { [key: string]: boolean } | null => {
+      for (let email of emails) {
+        console.log(email);
+        console.log("this.regExpEmail.test(email):" + this.regExpEmail.test(email));
+        if (!this.regExpEmail.test(email)) {
+          //return { invalidEmail: true };
+        }
+      }
+      //return null;
+      return { invalidEmail: true };
+    }
   }
+
+  validateEmailsTo(control: FormControl): { [key: string]: boolean } {
+    for (var email of this.emailsTo) {
+      if (!this.regExpEmail.test(email)) {
+        return { invalidEmail: true };
+      }
+    }
+    return null;
+  }
+
 
 }

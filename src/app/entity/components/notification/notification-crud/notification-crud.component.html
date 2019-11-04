@@ -25,7 +25,7 @@
             <!-- id -->
             <div class="div-crud-form-input input-container" *ngIf="visibleControls.id">
                 <mat-form-field>
-                    <input matInput placeholder="Id" title="Id" type="text" formControlName="id">
+                    <input matInput placeholder="Id" title="Id" type="text" formControlName="id">                    
                 </mat-form-field>
             </div>
 
@@ -37,6 +37,7 @@
                             {{product._id}} - {{product.mail}}
                         </mat-option>
                     </mat-select>
+                    <mat-error *ngIf="form.get('product').invalid">{{getErrorMessageProduct()}}</mat-error>
                 </mat-form-field>
             </div>
 
@@ -48,6 +49,7 @@
                         <mat-option value="S">Sent</mat-option>
                         <mat-option value="E">Error</mat-option>
                     </mat-select>
+                    <mat-error *ngIf="form.get('state').invalid">{{getErrorMessageState()}}</mat-error>
                 </mat-form-field>
             </div>
 
