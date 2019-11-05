@@ -7,6 +7,7 @@ import { ProductModel } from 'src/app/entity/models/product.model';
 import { COMMA, ENTER, SPACE } from '@angular/cdk/keycodes';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { MessageModel } from 'src/app/entity/models/message.model';
+import { AttachmentModel } from 'src/app/entity/models/attachment.model';
 
 @Component({
   selector: 'mail-entity-notification-crud',
@@ -68,6 +69,10 @@ export class NotificationCrudComponent implements OnInit {
       html: new FormControl('', [Validators.required]),
       attachments: new FormControl('')
     });
+    this.emailsTo = [];
+    this.emailsCc = [];
+    this.emailsCco = [];
+    this.attachments = [];
   }
 
   findProduct() {
@@ -95,28 +100,38 @@ export class NotificationCrudComponent implements OnInit {
     this.visibleControls.creationDate = false;
     this.visibleControls.sentDate = false;
     this.form.reset();
+    this.emailsTo = [];
+    this.emailsCc = [];
+    this.emailsCco = [];
+    this.attachments = [];
     this.notification = null;
   }
 
   crud() {
+    this.form.reset();
+    this.emailsTo = [];
+    this.emailsCc = [];
+    this.emailsCco = [];
+    this.attachments = [];
     this.title = "CRUD notification";
 
     this.form.get('id').setValue(this.notification._id);
-
-    //const product = this.products.find(product => product._id == this.notification.product);
     this.form.get('product').setValue(this.notification.product);
-
-
-    //this.form.get('product').setValue(this.notification.product);
     this.form.get('state').setValue(this.notification.state);
     this.form.get('creationDate').setValue(this.notification.creationDate);
     this.form.get('sentDate').setValue(this.notification.sentDate);
-    this.emailsTo = this.notification.message.to.split(',');
-    this.emailsCc = this.notification.message.cc.split(',');
-    this.emailsCco = this.notification.message.cco.split(',');
+    this.emailsTo = (this.notification.message.to != null) ? this.notification.message.to.split(',') : [];
+    console.log();
+    this.emailsCc = (this.notification.message.cc != null) ? this.notification.message.cc.split(',') : [];
+    this.emailsCco = (this.notification.message.cco != null) ? this.notification.message.cco.split(',') : [];
     this.form.get('subject').setValue(this.notification.message.subject);
     this.form.get('html').setValue(this.notification.message.html);
-    //this.form.get('attachments').setValue(this.notification.message.attachments);    
+
+    if(this.notification.message.attachments != null && this.notification.message.attachments.length > 0) {
+      for(let attachment of this.notification.message.attachments){
+        this.attachments.push(attachment.path);
+      }
+    }
 
     this.visibleControls = {
       id: true,
@@ -138,12 +153,23 @@ export class NotificationCrudComponent implements OnInit {
   onCreate() {
     if (this.form.valid) {
       //Assignment of values
-      this.notification = new NotificationModel();
-      //this.notification.id = String(this.form.get('id').value).trim();      
+      this.notification = new NotificationModel();      
+      this.notification.message = new MessageModel();
+      this.notification.message.attachments = [];
+
+      //this.notification.id = String(this.form.get('id').value).trim();
       this.notification.product = String(this.form.get('product').value).trim();
       this.notification.state = String(this.form.get('state').value).trim();
       this.notification.message.to = this.emailsTo.toString();
-
+      this.notification.message.cc = this.emailsCc.toString();
+      this.notification.message.cco = this.emailsCco.toString();
+      this.notification.message.subject = String(this.form.get('subject').value).trim();
+      this.notification.message.html = String(this.form.get('html').value).trim();
+      for(let attachmentRef of this.attachments){
+        let attachment = new AttachmentModel();
+        attachment.path = attachmentRef;
+        this.notification.message.attachments.push(attachment);
+      }
 
       //Api 
       this.entityService.save(NotificationModel.entity, this.notification)
@@ -152,7 +178,7 @@ export class NotificationCrudComponent implements OnInit {
       //Succes
       let succesMessage = "New notification: " + this.notification.message.subject;
       this.openSnackBar(succesMessage, "X", "snackbar-success");
-      this.createForm();
+      this.createForm();      
     } else {
       //Error
       let errorMessage = "¡Invalid form, " + this.validateForm() + "!";
@@ -163,9 +189,23 @@ export class NotificationCrudComponent implements OnInit {
   onUpdate() {
     //Check if there were changes    
     if (this.form.valid) {
-      //Assignment of values      
-      //this.notification.id = String(this.form.get('id').value).trim();      
+      //Assignment of values
+      this.notification.message = new MessageModel();
+      this.notification.message.attachments = [];
+
       this.notification.product = String(this.form.get('product').value).trim();
+      this.notification.state = String(this.form.get('state').value).trim();
+      this.notification.message.to = this.emailsTo.toString();
+      this.notification.message.cc = this.emailsCc.toString();
+      this.notification.message.cco = this.emailsCco.toString();
+      this.notification.message.subject = String(this.form.get('subject').value).trim();
+      this.notification.message.html = String(this.form.get('html').value).trim();
+
+      for(let attachmentRef of this.attachments){
+        let attachment = new AttachmentModel();
+        attachment.path = attachmentRef;
+        this.notification.message.attachments.push(attachment);
+      }
 
       //Api 
       this.entityService.update(NotificationModel.entity, this.notification)
@@ -203,13 +243,29 @@ export class NotificationCrudComponent implements OnInit {
       return this.getErrorMessageState();
     }
 
-    console.log("this.form.get('to').invalid:" + this.form.get('to').invalid);
-    console.log("this.form.get('to').hasError('invalidEmail'):" + this.form.get('to').hasError('invalidEmail'));
-    if (this.form.get('to').invalid || this.form.get('to').hasError('invalidEmail')) {
+    if (this.form.get('to').invalid) {
       return this.getErrorMessageTo();
     }
 
+    if (this.form.get('cc').invalid) {
+      return this.getErrorMessageCc();
+    }
 
+    if (this.form.get('cco').invalid) {
+      return this.getErrorMessageCco();
+    }
+
+    if (this.form.get('subject').invalid) {
+      return this.getErrorMessageSubject();
+    }
+
+    if (this.form.get('html').invalid) {
+      return this.getErrorMessageHtml();
+    }
+
+    if (this.form.get('attachments').invalid) {
+      return this.getErrorMessageAttachments();
+    }
 
   }
 
@@ -229,13 +285,13 @@ export class NotificationCrudComponent implements OnInit {
     if (this.form.get('to').hasError('required')) {
       return 'To is required';
     }
-    if (this.form.get('to').hasError('invalidEmail')) {
-      for (var email of this.emailsTo) {
-        if (!this.regExpEmail.test(email)) {
-          return 'Email of To:' + email + ' is invalid';
-        }
-      }
-    }
+    // if (this.form.get('to').hasError('invalidEmail')) {
+    //   for (var email of this.emailsTo) {
+    //     if (!this.regExpEmail.test(email)) {
+    //       return 'Email of To:' + email + ' is invalid';
+    //     }
+    //   }
+    // }
   }
 
   getErrorMessageCc() {
@@ -247,20 +303,20 @@ export class NotificationCrudComponent implements OnInit {
   }
 
   getErrorMessageSubject() {
-
+    if (this.form.get('subject').hasError('required')) {
+      return 'Subject is required';
+    }
   }
 
   getErrorMessageHtml() {
-
+    if (this.form.get('html').hasError('required')) {
+      return 'Html is required';
+    }
   }
 
   getErrorMessageAttachments() {
 
   }
-
-
-
-
 
   openSnackBar(message: string, action: string, style: string) {
     this._snackBar.open(
@@ -297,23 +353,23 @@ export class NotificationCrudComponent implements OnInit {
   emailsTo: string[] = [];
   emailsCc: string[] = [];
   emailsCco: string[] = [];
+  attachments: string[] = [];
 
-
-  addEmail(event: MatChipInputEvent, emails: string[]): void {
+  addItem(event: MatChipInputEvent, collection: string[]): void {
     const input = event.input;
     const value = event.value;
     if ((value || '').trim()) {
-      emails.push(value.trim());
+      collection.push(value.trim());
     }
     if (input) {
       input.value = '';
     }
   }
 
-  removeEmail(email: string, emails: string[]): void {
-    const index = emails.indexOf(email);
+  removeItem(item: string, collection: string[]): void {
+    const index = collection.indexOf(item);
     if (index >= 0) {
-      emails.splice(index, 1);
+      collection.splice(index, 1);
     }
   }
 
@@ -332,13 +388,21 @@ export class NotificationCrudComponent implements OnInit {
   }
 
   validateEmailsTo(control: FormControl): { [key: string]: boolean } {
-    for (var email of this.emailsTo) {
-      if (!this.regExpEmail.test(email)) {
-        return { invalidEmail: true };
+    if (this.emailsTo != null) {
+      for (var email of this.emailsTo) {
+        if (!this.regExpEmail.test(email)) {
+          return { invalidEmailTo: true };
+        }
       }
     }
     return null;
   }
+
+  validateEmail(email: string): boolean {
+    return this.regExpEmail.test(email);
+  }
+
+
 
 
 }
