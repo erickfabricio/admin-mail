@@ -1,10 +1,19 @@
 <div class="example-container" [class.example-is-mobile]="mobileQuery.matches">
 
     <mat-toolbar color="primary" class="example-toolbar">
+        
         <button mat-icon-button (click)="snav.toggle()">
             <mat-icon>menu</mat-icon>
         </button>
-        <h1 class="example-app-name">Admin Mail</h1>
+        <h1 class="example-app-name">Notification Management System</h1>
+
+        <button mat-button [matMenuTriggerFor]="menu" layout-align="end right">Menu</button>
+        <mat-menu #menu="matMenu">
+            <button mat-menu-item>Item 1</button>
+            <button mat-menu-item>Item 2</button>
+        </mat-menu>
+
+
     </mat-toolbar>
 
     <mat-sidenav-container class="example-sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
@@ -13,11 +22,17 @@
             fixedTopGap="56">
 
             <mat-nav-list>
-                
-                <button mat-list-item (click)="viewOption('Entity')"><mat-icon color="primary">find_in_page</mat-icon>Entities</button>
-                <button mat-list-item (click)="viewOption('Product')"><mat-icon color="primary">email</mat-icon>Product</button>
-                <button mat-list-item (click)="viewOption('Notification')"><mat-icon color="primary">notifications_active</mat-icon>Notification</button>
-                
+
+                <button mat-list-item (click)="viewOption('Entity')">
+                    <mat-icon color="primary">find_in_page</mat-icon>Entities
+                </button>
+                <button mat-list-item (click)="viewOption('Product')">
+                    <mat-icon color="primary">email</mat-icon>Product
+                </button>
+                <button mat-list-item (click)="viewOption('Notification')">
+                    <mat-icon color="primary">notifications_active</mat-icon>Notification
+                </button>
+
             </mat-nav-list>
 
         </mat-sidenav>

@@ -8,7 +8,7 @@
     <!-- BODY -->
     <mat-card-content class="login-body">
 
-        <form [formGroup]="form">
+        <form [formGroup]="form" [style.fontSize.px]=15>
 
             <!-- mail -->
             <div class="div-login-form-input input-container">
@@ -42,5 +42,7 @@
     <mat-card-actions class="login-footer">
         <button mat-stroked-button color="primary" (click)="login()">Sign in</button>
     </mat-card-actions>
+
+    <mat-card-footer> <a href="https://erickfabricio.com" target="_black">Developed by EF</a> </mat-card-footer>
 
 </mat-card>

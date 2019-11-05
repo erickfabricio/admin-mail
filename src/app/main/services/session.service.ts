@@ -33,4 +33,10 @@ export class SessionService {
     return this.http.get(`http://localhost:3000/api/session/validate`, options);
   }
 
+  signOut(user: UserModel) {
+    localStorage.removeItem('token');
+    //Login
+    //this.router.navigate(['login']);
+  }
+
 }
