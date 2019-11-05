@@ -72,8 +72,7 @@
             <!-- mail -->
             <div class="div-crud-form-input input-container" *ngIf="visibleControls.mail">
                 <mat-form-field>
-                    <input matInput placeholder="Mail" title="Mail" #inputMail type="text" formControlName="mail"
-                        maxlength="30">
+                    <input matInput placeholder="Mail" title="Mail" #inputMail type="text" formControlName="mail">
                     <mat-error *ngIf="form.get('mail').invalid">{{getErrorMessageMail()}}</mat-error>
                     <mat-hint align="end">{{inputMail.value?.length || 0}}/100</mat-hint>
                 </mat-form-field>

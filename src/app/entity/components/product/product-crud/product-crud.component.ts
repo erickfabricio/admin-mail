@@ -21,6 +21,8 @@ export class ProductCrudComponent implements OnInit {
   form: FormGroup;
   visibleControls;
 
+  hide: boolean = true;
+
   constructor(private entityService: EntityService, private _snackBar: MatSnackBar) { }
 
   ngOnInit() {
