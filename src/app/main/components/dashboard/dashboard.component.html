@@ -1,7 +1,7 @@
 <div class="example-container" [class.example-is-mobile]="mobileQuery.matches">
 
     <mat-toolbar color="primary" class="example-toolbar">
-        
+
         <button mat-icon-button (click)="snav.toggle()">
             <mat-icon>menu</mat-icon>
         </button>
@@ -23,24 +23,41 @@
 
             <mat-nav-list>
 
-                <button mat-list-item (click)="viewOption('Entity')">
-                    <mat-icon color="primary">find_in_page</mat-icon>Entities
+                <button mat-list-item (click)="viewOption('Application')">
+                    <mat-icon color="primary">apps</mat-icon>Applications
                 </button>
+
                 <button mat-list-item (click)="viewOption('Product')">
-                    <mat-icon color="primary">email</mat-icon>Product
+                    <mat-icon color="primary">email</mat-icon>Products
                 </button>
+
                 <button mat-list-item (click)="viewOption('Notification')">
-                    <mat-icon color="primary">notifications_active</mat-icon>Notification
+                    <mat-icon color="primary">notifications_active</mat-icon>Notifications
+                </button>
+
+                <button mat-list-item (click)="viewOption('User')">
+                    <mat-icon color="primary">supervised_user_circle</mat-icon>Users
+                </button>
+
+                <button mat-list-item (click)="viewOption('Log')">
+                    <mat-icon color="primary">find_in_page</mat-icon>Logs
+                </button>
+
+                <button mat-list-item (click)="viewOption('Entity')">
+                    <mat-icon color="primary">assignment</mat-icon>Entities
                 </button>
 
             </mat-nav-list>
 
         </mat-sidenav>
 
-        <mat-sidenav-content [ngSwitch]="option">
-            <mail-entity-main *ngSwitchCase="'Entity'"></mail-entity-main>
+        <mat-sidenav-content [ngSwitch]="option">            
+            <mail-entity-application-main *ngSwitchCase="'Application'"></mail-entity-application-main>
             <mail-entity-product-main *ngSwitchCase="'Product'"></mail-entity-product-main>
             <mail-entity-notification-main *ngSwitchCase="'Notification'"></mail-entity-notification-main>
+            <mail-entity-user-main *ngSwitchCase="'User'"></mail-entity-user-main>
+            <mail-entity-log-main *ngSwitchCase="'Log'"></mail-entity-log-main>            
+            <mail-entity-main *ngSwitchCase="'Entity'"></mail-entity-main>
             <mail-entity-main *ngSwitchDefault></mail-entity-main>
         </mat-sidenav-content>
 

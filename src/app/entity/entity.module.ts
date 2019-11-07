@@ -11,9 +11,18 @@ import { NotificationCrudComponent } from './components/notification/notificatio
 import { EntityMainComponent } from './components/main/main.component';
 import { MaterialModule } from '../material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ApplicationMainComponent } from './components/application/application-main/application-main.component';
+import { ApplicationListComponent } from './components/application/application-list/application-list.component';
+import { ApplicationCrudComponent } from './components/application/application-crud/application-crud.component';
+import { UserMainComponent } from './components/user/user-main/user-main.component';
+import { UserListComponent } from './components/user/user-list/user-list.component';
+import { UserCrudComponent } from './components/user/user-crud/user-crud.component';
+import { LogMainComponent } from './components/log/log-main/log-main.component';
+import { LogListComponent } from './components/log/log-list/log-list.component';
+import { LogCrudComponent } from './components/log/log-crud/log-crud.component';
 
 @NgModule({
-  declarations: [EntityMainComponent, ProductMainComponent, ProductListComponent, ProductCrudComponent, NotificationMainComponent, NotificationListComponent, NotificationCrudComponent],
+  declarations: [EntityMainComponent, ProductMainComponent, ProductListComponent, ProductCrudComponent, NotificationMainComponent, NotificationListComponent, NotificationCrudComponent, ApplicationMainComponent, ApplicationListComponent, ApplicationCrudComponent, UserMainComponent, UserListComponent, UserCrudComponent, LogMainComponent, LogListComponent, LogCrudComponent],
   imports: [
     CommonModule,
     EntityRoutingModule,
@@ -21,7 +30,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     FormsModule,
     ReactiveFormsModule
   ],
-  exports: [EntityMainComponent, ProductMainComponent, NotificationMainComponent],
+  exports: [EntityMainComponent, ProductMainComponent, NotificationMainComponent, ApplicationMainComponent, UserMainComponent, LogMainComponent],
   entryComponents: []
 })
 export class EntityModule { }
