@@ -20,9 +20,12 @@ import { UserCrudComponent } from './components/user/user-crud/user-crud.compone
 import { LogMainComponent } from './components/log/log-main/log-main.component';
 import { LogListComponent } from './components/log/log-list/log-list.component';
 import { LogCrudComponent } from './components/log/log-crud/log-crud.component';
+import { TokenMainComponent } from './components/token/token-main/token-main.component';
+import { TokenListComponent } from './components/token/token-list/token-list.component';
+import { TokenCrudComponent } from './components/token/token-crud/token-crud.component';
 
 @NgModule({
-  declarations: [EntityMainComponent, ProductMainComponent, ProductListComponent, ProductCrudComponent, NotificationMainComponent, NotificationListComponent, NotificationCrudComponent, ApplicationMainComponent, ApplicationListComponent, ApplicationCrudComponent, UserMainComponent, UserListComponent, UserCrudComponent, LogMainComponent, LogListComponent, LogCrudComponent],
+  declarations: [EntityMainComponent, ProductMainComponent, ProductListComponent, ProductCrudComponent, NotificationMainComponent, NotificationListComponent, NotificationCrudComponent, ApplicationMainComponent, ApplicationListComponent, ApplicationCrudComponent, UserMainComponent, UserListComponent, UserCrudComponent, LogMainComponent, LogListComponent, LogCrudComponent, TokenMainComponent, TokenListComponent, TokenCrudComponent],
   imports: [
     CommonModule,
     EntityRoutingModule,

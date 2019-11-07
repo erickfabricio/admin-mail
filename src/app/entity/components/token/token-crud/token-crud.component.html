@@ -29,33 +29,17 @@
                 </mat-form-field>
             </div>
 
-            <!-- name -->
-            <div class="div-crud-form-input input-container" *ngIf="visibleControls.name">
+            <!-- token -->
+            <div class="div-crud-form-input input-container" *ngIf="visibleControls.token">
                 <mat-form-field>
-                    <input matInput placeholder="Name" title="Name" #inputName type="text" formControlName="name"
-                        maxlength="50">
-                    <mat-error *ngIf="form.get('name').invalid">{{getErrorMessageName()}}</mat-error>
-                    <mat-hint align="end">{{inputName.value?.length || 0}}/50</mat-hint>
+                    <input matInput placeholder="Token" title="Token" type="text" formControlName="token">
                 </mat-form-field>
             </div>
 
-            <!-- contact -->
-            <div class="div-crud-form-input input-container" *ngIf="visibleControls.contact">
+            <!-- payload -->
+            <div class="div-crud-form-input input-container" *ngIf="visibleControls.payload">
                 <mat-form-field>
-                    <input matInput placeholder="Contact" title="Contact" #inputContact type="text"
-                        formControlName="contact" maxlength="50">
-                    <mat-error *ngIf="form.get('contact').invalid">{{getErrorMessageContact()}}</mat-error>
-                    <mat-hint align="end">{{inputContact.value?.length || 0}}/50</mat-hint>
-                </mat-form-field>
-            </div>
-
-            <!-- description -->
-            <div class="div-crud-form-input input-container" *ngIf="visibleControls.description">
-                <mat-form-field>
-                    <input matInput placeholder="Description" title="Description" #inputDescription type="text"
-                        formControlName="description" maxlength="50">
-                    <mat-error *ngIf="form.get('description').invalid">{{getErrorMessageDescription()}}</mat-error>
-                    <mat-hint align="end">{{inputDescription.value?.length || 0}}/50</mat-hint>
+                    <input matInput placeholder="Payload" title="Payload" type="text" formControlName="payload">
                 </mat-form-field>
             </div>
 
@@ -67,19 +51,30 @@
                 </mat-form-field>
             </div>
 
+            <!-- seconds -->
+            <div class="div-crud-form-input input-container" *ngIf="visibleControls.seconds">
+                <mat-form-field>
+                    <input matInput placeholder="Seconds" title="Seconds" type="text" formControlName="seconds">
+                </mat-form-field>
+            </div>
+
+            <!-- key -->
+            <div class="div-crud-form-input input-container" *ngIf="visibleControls.key">
+                <mat-form-field>
+                    <input matInput placeholder="Key" title="Key" type="text" formControlName="key">
+                </mat-form-field>
+            </div>
+
             <!-- state -->
             <div class="div-crud-form-input input-container" *ngIf="visibleControls.state">
                 <mat-form-field>
-                    <mat-select placeholder="State" title="State" formControlName="state">
+                    <mat-select placeholder="State" title="State" formControlName="state">                        
                         <mat-option value="A">Activo</mat-option>
                         <mat-option value="I">Inactivo</mat-option>
                     </mat-select>
                     <mat-error *ngIf="form.get('state').invalid">{{getErrorMessageState()}}</mat-error>
                 </mat-form-field>
             </div>
-
-            <!-- tokens -->
-            <mail-entity-token-main [application]="application"></mail-entity-token-main>
 
         </form>
     </div>
