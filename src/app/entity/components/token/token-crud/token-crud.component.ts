@@ -19,6 +19,7 @@ export class TokenCrudComponent implements OnInit {
 
   //CRUD
   @Input() action: string;
+  
   @Input() application: ApplicationModel;
   @Input() token: TokenModel;
 

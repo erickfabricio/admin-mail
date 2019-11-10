@@ -3,6 +3,7 @@ import { MatTabChangeEvent } from '@angular/material/tabs';
 import { TokenListComponent } from '../token-list/token-list.component';
 import { TokenCrudComponent } from '../token-crud/token-crud.component';
 import { ApplicationModel } from 'src/app/entity/models/application.model';
+import { TokenModel } from 'src/app/entity/models/token.model';
 
 @Component({
   selector: 'mail-entity-token-main',
@@ -11,8 +12,9 @@ import { ApplicationModel } from 'src/app/entity/models/application.model';
 })
 export class TokenMainComponent implements OnInit {
 
-  @Input() application: ApplicationModel;
-
+  @Input("application") application: ApplicationModel;
+  @Input("token") token: TokenModel;
+  
   @ViewChild("tabGroup", { static: true }) tabGroup;
   @ViewChild("tabList", { static: true }) tabList;
   @ViewChild("list", { static: true }) list: TokenListComponent;
@@ -23,15 +25,9 @@ export class TokenMainComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {    
-    this.view = "LIST";
+    this.view = "LIST";    
     this.captureEventList();
     this.captureEventCrud();    
-  }
-
-  ver(){
-    this.list.application = this.application;
-    this.list.tokens = this.application.tokens;
-    this.crud.application = this.application;
   }
 
   captureEventList() {
@@ -40,11 +36,11 @@ export class TokenMainComponent implements OnInit {
       //console.log(data.action);
       //console.log(data.token);
 
-      //Send data to CRUD
+      //Send data to CRUD      
       this.crud.action = data.action;
       this.crud.token = data.token;
       this.crud.show();
-
+      
       //Change and enable tag      
       this.tabCrud.textLabel = "Token";
       this.tabCrud.disabled = false;

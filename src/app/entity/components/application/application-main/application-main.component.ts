@@ -33,7 +33,7 @@ export class ApplicationMainComponent implements OnInit {
 
       //Send data to CRUD
       this.crud.action = data.action;
-      this.crud.application = data.application;
+      this.crud.application = data.application;        
       this.crud.show();
 
       //Change and enable tag      

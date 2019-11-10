@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, Input, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators, ValidatorFn } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { EntityService } from 'src/app/entity/services/entity.service';
@@ -8,6 +8,7 @@ import { COMMA, ENTER, SPACE } from '@angular/cdk/keycodes';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { MessageModel } from 'src/app/entity/models/message.model';
 import { AttachmentModel } from 'src/app/entity/models/attachment.model';
+import { TokenMainComponent } from '../../token/token-main/token-main.component';
 
 @Component({
   selector: 'mail-entity-application-crud',

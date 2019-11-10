@@ -21,7 +21,7 @@ export class TokenListComponent implements OnInit {
 
   //List
   @Input() application: ApplicationModel;
-  @Input() tokens: TokenModel[];
+  @Input() token: TokenModel;
     
   constructor() { }
 
@@ -29,9 +29,8 @@ export class TokenListComponent implements OnInit {
     this.displayedColumns = ['#', 'id'];
     this.dataSource = new MatTableDataSource<TokenModel>();
     this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
-    this.tokens = this.application.tokens;
-    this.dataSource.data = this.application.tokens;
+    this.dataSource.sort = this.sort;    
+    this.dataSource.data = [];//this.application.tokens;
   }
   
   applyFilter(filterValue: string) {
