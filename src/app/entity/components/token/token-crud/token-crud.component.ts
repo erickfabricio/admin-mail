@@ -21,14 +21,14 @@ export class TokenCrudComponent implements OnInit {
   @Input() action: string;
   
   @Input("application") application: ApplicationModel;
-  @Input() token: TokenModel;
+  @Input("token") token: TokenModel;
 
   //Form
   title: string;
   form: FormGroup;
   visibleControls;
 
-  constructor(private _snackBar: MatSnackBar) { }
+  constructor(private entityService: EntityService, private _snackBar: MatSnackBar) { }
 
   ngOnInit() {
     this.title = "CRUD";
@@ -132,6 +132,9 @@ export class TokenCrudComponent implements OnInit {
       this.token.state = String(this.form.get('state').value).trim();
             
       //Update 
+      //Api 
+      this.entityService.update(ApplicationModel.entity, this.application)
+        .subscribe(application => { console.log("Update application"); this.application = <ApplicationModel>application });
       
       //Succes
       let succesMessage = "Update token: " + this.token._id;

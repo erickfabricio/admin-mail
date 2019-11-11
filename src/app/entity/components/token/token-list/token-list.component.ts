@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, Output, EventEmitter, Input } from '@angular/core';
+import { Component, OnInit, ViewChild, Output, EventEmitter, Input, OnChanges } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -11,7 +11,7 @@ import { ApplicationModel } from 'src/app/entity/models/application.model';
   templateUrl: './token-list.component.html',
   styleUrls: ['./token-list.component.css']
 })
-export class TokenListComponent implements OnInit {
+export class TokenListComponent implements OnInit, OnChanges {
 
   //Filter
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
@@ -24,12 +24,18 @@ export class TokenListComponent implements OnInit {
     
   constructor() { }
 
+  ngOnChanges(){   
+    if(this.application != null){
+      this.dataSource.data = this.application.tokens;
+    }        
+  }
+
   ngOnInit() {    
     this.displayedColumns = ['#', 'id'];
     this.dataSource = new MatTableDataSource<TokenModel>();
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;    
-    this.dataSource.data = [];//this.application.tokens;
+    //this.dataSource.data = [];//this.application.tokens;
   }
   
   applyFilter(filterValue: string) {

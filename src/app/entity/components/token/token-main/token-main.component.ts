@@ -10,10 +10,10 @@ import { TokenModel } from 'src/app/entity/models/token.model';
   templateUrl: './token-main.component.html',
   styleUrls: ['./token-main.component.css']
 })
-export class TokenMainComponent implements OnInit, OnChanges {
+export class TokenMainComponent implements OnInit {
 
   @Input("application") application: ApplicationModel;
-    
+
   @ViewChild("tabGroup", { static: true }) tabGroup;
   @ViewChild("tabList", { static: true }) tabList;
   @ViewChild("list", { static: true }) list: TokenListComponent;
@@ -21,21 +21,12 @@ export class TokenMainComponent implements OnInit, OnChanges {
   @ViewChild("crud", { static: true }) crud: TokenCrudComponent;
   view: string;
 
-  constructor() { 
-    
-  }
+  constructor() { }
 
-  ngOnChanges(){   
-    if(this.application != null){
-      this.list.dataSource.data = this.application.tokens;
-    }    
-    
-  }
-
-  ngOnInit() {    
-    this.view = "LIST";    
+  ngOnInit() {
+    this.view = "LIST";
     this.captureEventList();
-    this.captureEventCrud();    
+    this.captureEventCrud();
   }
 
   captureEventList() {
@@ -48,7 +39,7 @@ export class TokenMainComponent implements OnInit, OnChanges {
       this.crud.action = data.action;
       this.crud.token = data.token;
       this.crud.show();
-            
+
       //Change and enable tag      
       this.tabCrud.textLabel = "Token";
       this.tabCrud.disabled = false;
@@ -64,7 +55,7 @@ export class TokenMainComponent implements OnInit, OnChanges {
     this.crud.eventUpdateList.pipe().subscribe(isUpdateList => {
       //Data
       //console.log("Update list:" + isUpdateList);
-      
+
       if (isUpdateList) {
         //this.list.find();
       };
@@ -72,8 +63,8 @@ export class TokenMainComponent implements OnInit, OnChanges {
       if (this.crud.action == "DELETE") {
         this.tabGroup.selectedIndex = 0;
       }
-      
-    });    
+
+    });
   }
 
   onChangeTab(event: MatTabChangeEvent) {
@@ -83,6 +74,6 @@ export class TokenMainComponent implements OnInit, OnChanges {
       this.tabCrud.disabled = true;
       this.view = "LIST";
     }
-  }  
+  }
 
 }
