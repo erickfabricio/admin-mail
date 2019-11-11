@@ -20,7 +20,7 @@ export class TokenCrudComponent implements OnInit {
   //CRUD
   @Input() action: string;
   
-  @Input() application: ApplicationModel;
+  @Input("application") application: ApplicationModel;
   @Input() token: TokenModel;
 
   //Form

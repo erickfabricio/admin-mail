@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, Input } from '@angular/core';
+import { Component, OnInit, ViewChild, Input, OnChanges } from '@angular/core';
 import { MatTabChangeEvent } from '@angular/material/tabs';
 import { TokenListComponent } from '../token-list/token-list.component';
 import { TokenCrudComponent } from '../token-crud/token-crud.component';
@@ -10,11 +10,10 @@ import { TokenModel } from 'src/app/entity/models/token.model';
   templateUrl: './token-main.component.html',
   styleUrls: ['./token-main.component.css']
 })
-export class TokenMainComponent implements OnInit {
+export class TokenMainComponent implements OnInit, OnChanges {
 
   @Input("application") application: ApplicationModel;
-  @Input("token") token: TokenModel;
-  
+    
   @ViewChild("tabGroup", { static: true }) tabGroup;
   @ViewChild("tabList", { static: true }) tabList;
   @ViewChild("list", { static: true }) list: TokenListComponent;
@@ -22,7 +21,16 @@ export class TokenMainComponent implements OnInit {
   @ViewChild("crud", { static: true }) crud: TokenCrudComponent;
   view: string;
 
-  constructor() { }
+  constructor() { 
+    
+  }
+
+  ngOnChanges(){   
+    if(this.application != null){
+      this.list.dataSource.data = this.application.tokens;
+    }    
+    
+  }
 
   ngOnInit() {    
     this.view = "LIST";    
@@ -40,7 +48,7 @@ export class TokenMainComponent implements OnInit {
       this.crud.action = data.action;
       this.crud.token = data.token;
       this.crud.show();
-      
+            
       //Change and enable tag      
       this.tabCrud.textLabel = "Token";
       this.tabCrud.disabled = false;

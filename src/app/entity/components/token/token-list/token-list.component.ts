@@ -20,8 +20,7 @@ export class TokenListComponent implements OnInit {
   dataSource: MatTableDataSource<TokenModel>;
 
   //List
-  @Input() application: ApplicationModel;
-  @Input() token: TokenModel;
+  @Input("application") application: ApplicationModel;
     
   constructor() { }
 

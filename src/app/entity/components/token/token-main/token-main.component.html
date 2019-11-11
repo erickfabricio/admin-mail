@@ -6,13 +6,13 @@
 
         <mat-tab label="List" #tabList select>
             <div class="container-mat-tab">
-                <mail-entity-token-list #list></mail-entity-token-list>
+                <mail-entity-token-list #list [application]="application"></mail-entity-token-list>
             </div>
         </mat-tab>
 
         <mat-tab label="" #tabCrud disabled>
             <div class="container-mat-tab">
-                <mail-entity-token-crud #crud></mail-entity-token-crud>
+                <mail-entity-token-crud #crud [application]="application"></mail-entity-token-crud>
             </div>
         </mat-tab>
 
